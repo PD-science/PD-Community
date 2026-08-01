@@ -433,6 +433,17 @@ textarea {
   font-size: 0.86rem;
 }
 
+.post-actions button:hover,
+.post-actions button:focus-visible {
+  border-color: var(--teal);
+  background: var(--mint);
+  outline: none;
+}
+
+.post-actions button:active {
+  transform: translateY(1px);
+}
+
 .split-section {
   display: grid;
   grid-template-columns: minmax(240px, 0.62fr) minmax(0, 1.38fr);

@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
 type Post = {
   id: number;
@@ -48,6 +48,14 @@ export function CommunityBoard() {
   const [posts, setPosts] = useState<Post[]>(fallbackPosts);
   const [activeChannel, setActiveChannel] = useState("全部");
   const [status, setStatus] = useState("欢迎发起一个具体问题");
+  const [draft, setDraft] = useState({
+    role: "患者",
+    channel: "患者互助",
+    title: "",
+    body: "",
+  });
+  const composerRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     fetch("/api/posts")
@@ -69,11 +77,10 @@ export function CommunityBoard() {
 
   async function submitPost(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    const title = String(form.get("title") ?? "").trim();
-    const body = String(form.get("body") ?? "").trim();
-    const role = String(form.get("role") ?? "患者");
-    const channel = String(form.get("channel") ?? "患者互助");
+    const title = draft.title.trim();
+    const body = draft.body.trim();
+    const role = draft.role;
+    const channel = draft.channel;
 
     if (!title || !body) {
       setStatus("标题和内容都需要填写");
@@ -91,7 +98,7 @@ export function CommunityBoard() {
       createdAt: "刚刚",
     };
     setPosts((current) => [optimisticPost, ...current]);
-    event.currentTarget.reset();
+    setDraft({ role: "患者", channel: "患者互助", title: "", body: "" });
 
     try {
       const response = await fetch("/api/posts", {
@@ -108,16 +115,56 @@ export function CommunityBoard() {
     }
   }
 
+  function focusComposer(nextDraft: Partial<typeof draft>, nextStatus: string) {
+    setDraft((current) => ({ ...current, ...nextDraft }));
+    setStatus(nextStatus);
+    composerRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.setTimeout(() => bodyRef.current?.focus(), 260);
+  }
+
+  function replyToPost(post: Post) {
+    focusComposer(
+      {
+        channel: post.channel,
+        title: `回复：${post.title}`.slice(0, 80),
+        body: `我想回应「${post.title}」：`,
+      },
+      "已带入原帖标题，可以继续写留言",
+    );
+  }
+
+  function inviteDoctor(post: Post) {
+    focusComposer(
+      {
+        channel: "医生答疑",
+        title: `请医生看看：${post.title}`.slice(0, 80),
+        body: `想邀请医生围绕这个问题给一些判断思路：${post.body}`,
+      },
+      "已切到医生答疑板块",
+    );
+  }
+
+  function saveLiteratureLead(post: Post) {
+    const saved = JSON.parse(window.localStorage.getItem("pd-science-saved-leads") ?? "[]") as string[];
+    const nextSaved = Array.from(new Set([post.title, ...saved])).slice(0, 20);
+    window.localStorage.setItem("pd-science-saved-leads", JSON.stringify(nextSaved));
+    setStatus(`已收藏「${post.title}」`);
+  }
+
   return (
     <section className="community-section" id="community">
-      <div className="composer">
+      <div className="composer" ref={composerRef}>
         <p className="eyebrow">Community board</p>
         <h2>发帖提问</h2>
         <form onSubmit={submitPost}>
           <div className="field-row">
             <label>
               身份
-              <select name="role" defaultValue="患者">
+              <select
+                name="role"
+                value={draft.role}
+                onChange={(event) => setDraft((current) => ({ ...current, role: event.target.value }))}
+              >
                 <option>患者</option>
                 <option>家属</option>
                 <option>医生</option>
@@ -126,7 +173,11 @@ export function CommunityBoard() {
             </label>
             <label>
               板块
-              <select name="channel" defaultValue="患者互助">
+              <select
+                name="channel"
+                value={draft.channel}
+                onChange={(event) => setDraft((current) => ({ ...current, channel: event.target.value }))}
+              >
                 <option>患者互助</option>
                 <option>医生答疑</option>
                 <option>科研讨论</option>
@@ -136,11 +187,25 @@ export function CommunityBoard() {
           </div>
           <label>
             标题
-            <input name="title" placeholder="例如：左旋多巴加量前应记录哪些症状？" maxLength={80} />
+            <input
+              name="title"
+              placeholder="例如：左旋多巴加量前应记录哪些症状？"
+              maxLength={80}
+              value={draft.title}
+              onChange={(event) => setDraft((current) => ({ ...current, title: event.target.value }))}
+            />
           </label>
           <label>
             内容
-            <textarea name="body" placeholder="写下你的问题、背景、已有检查或想邀请谁来回答。" rows={5} maxLength={420} />
+            <textarea
+              ref={bodyRef}
+              name="body"
+              placeholder="写下你的问题、背景、已有检查或想邀请谁来回答。"
+              rows={5}
+              maxLength={420}
+              value={draft.body}
+              onChange={(event) => setDraft((current) => ({ ...current, body: event.target.value }))}
+            />
           </label>
           <div className="composer-footer">
             <span aria-live="polite">{status}</span>
@@ -179,9 +244,15 @@ export function CommunityBoard() {
               <h3>{post.title}</h3>
               <p>{post.body}</p>
               <div className="post-actions">
-                <button type="button">留言</button>
-                <button type="button">邀请医生</button>
-                <button type="button">收藏文献线索</button>
+                <button type="button" onClick={() => replyToPost(post)} aria-label={`留言回复：${post.title}`}>
+                  留言
+                </button>
+                <button type="button" onClick={() => inviteDoctor(post)} aria-label={`邀请医生回答：${post.title}`}>
+                  邀请医生
+                </button>
+                <button type="button" onClick={() => saveLiteratureLead(post)} aria-label={`收藏文献线索：${post.title}`}>
+                  收藏文献线索
+                </button>
               </div>
             </article>
           ))}

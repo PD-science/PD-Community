@@ -514,9 +514,25 @@ textarea {
 
 .recruit-panel li {
   border-left: 4px solid var(--sun);
-  padding: 10px 12px;
   color: #2f4640;
   background: #fbfcf8;
+}
+
+.recruit-panel li a {
+  display: block;
+  min-height: 44px;
+  padding: 10px 12px;
+  color: #2f4640;
+  text-decoration: underline;
+  text-decoration-color: rgba(16, 107, 99, 0.34);
+  text-underline-offset: 5px;
+}
+
+.recruit-panel li a:hover,
+.recruit-panel li a:focus-visible {
+  color: var(--teal);
+  background: var(--mint);
+  outline: none;
 }
 
 @media (max-width: 900px) {

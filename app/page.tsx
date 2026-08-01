@@ -1,11 +1,5 @@
+import { ChannelStats } from "./channel-stats";
 import { CommunityBoard } from "./community-board";
-
-const channels = [
-  { label: "患者互助", count: "128", tone: "症状记录、用药体验、照护经验" },
-  { label: "医生答疑", count: "36", tone: "诊疗路径、DBS、康复建议" },
-  { label: "科研讨论", count: "54", tone: "靶点、临床试验、文献复盘" },
-  { label: "招募与访谈", count: "12", tone: "问卷、访谈、研究参与机会" },
-];
 
 const literature = [
   {
@@ -26,9 +20,18 @@ const literature = [
 ];
 
 const recruitments = [
-  "早期帕金森非运动症状访谈",
-  "照护者负担与睡眠问卷",
-  "科研人员文献共读小组招募",
+  {
+    label: "早期帕金森非运动症状访谈",
+    href: "mailto:pdscience@example.com?subject=报名：早期帕金森非运动症状访谈",
+  },
+  {
+    label: "照护者负担与睡眠问卷",
+    href: "mailto:pdscience@example.com?subject=参与：照护者负担与睡眠问卷",
+  },
+  {
+    label: "科研人员文献共读小组招募",
+    href: "mailto:pdscience@example.com?subject=报名：科研人员文献共读小组",
+  },
 ];
 
 export default function Home() {
@@ -74,17 +77,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="channel-strip" aria-label="社区板块">
-        {channels.map((item) => (
-          <article key={item.label} className="channel-card">
-            <div>
-              <span>{item.label}</span>
-              <strong>{item.count}</strong>
-            </div>
-            <p>{item.tone}</p>
-          </article>
-        ))}
-      </section>
+      <ChannelStats />
 
       <CommunityBoard />
 
@@ -119,7 +112,9 @@ export default function Home() {
           <h2>正在收集的问题</h2>
           <ul>
             {recruitments.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item.label}>
+                <a href={item.href}>{item.label}</a>
+              </li>
             ))}
           </ul>
           <a href="mailto:pdscience@example.com?subject=PD科学社区招募合作">发布招募广告</a>

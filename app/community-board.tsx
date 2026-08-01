@@ -109,6 +109,7 @@ export function CommunityBoard() {
       if (!response.ok) throw new Error("Post failed");
       const data = await response.json();
       setPosts((current) => [data.post, ...current.filter((post) => post.id !== optimisticPost.id)]);
+      window.dispatchEvent(new Event("pd-science-posts-updated"));
       setStatus("已发布到社区");
     } catch {
       setStatus("已先显示在本页，网络恢复后可再次发布");

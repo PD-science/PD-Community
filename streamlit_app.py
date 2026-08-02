@@ -455,7 +455,17 @@ def save_data(data: dict[str, Any], sha: str | None, mode: str) -> None:
 
 
 def count_for_channel(posts: list[dict[str, Any]], channel: str) -> int:
-    return sum(1 + len(post.get("replies", [])) for post in posts if post.get("channel") == channel)
+    base_count = sum(1 + len(post.get("replies", [])) for post in posts if post.get("channel") == channel)
+    if channel != "医生答疑":
+        return base_count
+    doctor_replies_in_other_channels = sum(
+        1
+        for post in posts
+        if post.get("channel") != "医生答疑"
+        for reply in post.get("replies", [])
+        if reply.get("role") == "医生"
+    )
+    return base_count + doctor_replies_in_other_channels
 
 
 def add_post(data: dict[str, Any], post: dict[str, Any]) -> dict[str, Any]:

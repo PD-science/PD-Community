@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 
 type Post = {
   channel: string;
-  replies?: unknown[];
+  replies?: { role?: string }[];
 };
 
 const channels = [
@@ -29,6 +29,9 @@ export function ChannelStats() {
       for (const post of data.posts ?? []) {
         if (post.channel in nextCounts) {
           nextCounts[post.channel] += 1 + (post.replies?.length ?? 0);
+        }
+        if (post.channel !== "医生答疑") {
+          nextCounts["医生答疑"] += post.replies?.filter((reply) => reply.role === "医生").length ?? 0;
         }
       }
       setCounts(nextCounts);

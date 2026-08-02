@@ -1,0 +1,26 @@
+name: 招募与访谈
+description: 问卷、访谈、研究参与机会
+title: "招募与访谈："
+labels: ["招募与访谈"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: 招募或问卷说明
+      placeholder: 例如：早期帕金森非运动症状访谈
+    validations:
+      required: true
+  - type: textarea
+    id: eligibility
+    attributes:
+      label: 适合参与的人群
+      description: 可选。
+    validations:
+      required: false
+  - type: textarea
+    id: contact
+    attributes:
+      label: 联系方式或参与链接
+      description: 请只发布你愿意公开的信息。
+    validations:
+      required: false

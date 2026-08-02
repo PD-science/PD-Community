@@ -1,0 +1,19 @@
+name: 科研讨论
+description: 文献共读、临床试验、研究线索讨论
+title: "科研讨论："
+labels: ["科研讨论"]
+body:
+  - type: textarea
+    id: topic
+    attributes:
+      label: 讨论主题
+      placeholder: 例如：alpha-syn SAA 定义争议共读
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: 相关文献或链接
+      description: 可选。贴 DOI、PubMed、论文标题或自己的阅读问题。
+    validations:
+      required: false

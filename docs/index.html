@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PD科学社区</title>
+    <meta
+      name="description"
+      content="PD科学社区：患者、医生、科研人员共同交流的帕金森病问答与文献讨论空间。"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="PD科学社区首页">
+          <img src="./assets/pd-science-header-logo.png" alt="" />
+          <span>PD科学</span>
+        </a>
+        <nav aria-label="页面导航">
+          <a href="#community">社区</a>
+          <a href="#assistant">小助手</a>
+          <a href="#research">文献</a>
+          <a href="#wechat">公众号</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">患者 · 医生 · 科研人员共同交流</p>
+          <h1>PD科学社区</h1>
+          <p>
+            一个面向帕金森病患者、家属、医生和科研人员的公开交流空间。提问、留言和回复会保存在 GitHub Issues 中，免费、公开、可追溯。
+          </p>
+          <div class="actions">
+            <a class="primary" href="https://github.com/PD-science/PD-Community/issues/new/choose">发帖提问</a>
+            <a class="secondary" href="https://pd-science.streamlit.app/" target="_blank" rel="noreferrer">进入小助手</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="notice">
+        <strong>留言方式</strong>
+        <p>
+          点击“发帖提问”后，用 GitHub 账号登录即可提交。每一个问题是一条 Issue，其他人可以在该 Issue 下继续留言回复。
+        </p>
+      </section>
+
+      <section class="community-grid" id="community">
+        <aside class="panel">
+          <p class="eyebrow">Community board</p>
+          <h2>发帖入口</h2>
+          <div class="quick-links">
+            <a href="https://github.com/PD-science/PD-Community/issues/new?template=patient-question.yml&labels=患者互助">患者互助</a>
+            <a href="https://github.com/PD-science/PD-Community/issues/new?template=doctor-question.yml&labels=医生答疑">医生答疑</a>
+            <a href="https://github.com/PD-science/PD-Community/issues/new?template=research-discussion.yml&labels=科研讨论">科研讨论</a>
+            <a href="https://github.com/PD-science/PD-Community/issues/new?template=recruitment.yml&labels=招募与访谈">招募与访谈</a>
+          </div>
+          <p class="hint">如果打不开模板页面，也可以直接进入 Issues 列表发起新问题。</p>
+          <a class="secondary wide" href="https://github.com/PD-science/PD-Community/issues">查看全部留言</a>
+        </aside>
+
+        <section class="panel feed">
+          <div class="feed-header">
+            <div>
+              <p class="eyebrow">Latest questions</p>
+              <h2>最新交流</h2>
+            </div>
+            <a href="https://github.com/PD-science/PD-Community/issues">全部</a>
+          </div>
+          <div id="issue-list" class="issue-list" aria-live="polite">
+            <article class="issue-card">
+              <h3>正在读取 GitHub 留言...</h3>
+              <p>如果网络较慢，可以直接点击“查看全部留言”。</p>
+            </article>
+          </div>
+        </section>
+      </section>
+
+      <section class="split" id="assistant">
+        <div class="assistant-card">
+          <img src="./assets/pd-science-bot.png" alt="PD科学小助手" />
+          <div>
+            <p class="eyebrow">AI 小助手入口</p>
+            <h2>把问题先整理清楚</h2>
+            <p>用药、症状、文献名词、就诊前准备，都可以先让小助手帮你梳理。</p>
+            <a class="secondary" href="https://pd-science.streamlit.app/" target="_blank" rel="noreferrer">打开 Streamlit 小助手</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="literature" id="research">
+        <div>
+          <p class="eyebrow">Literature room</p>
+          <h2>文献板块</h2>
+        </div>
+        <article>
+          <span>Science</span>
+          <h3>FAM171A2 与 alpha-syn 传播</h3>
+          <p>关注疾病修饰靶点，讨论阻断病理蛋白传播的治疗可能性。</p>
+        </article>
+        <article>
+          <span>Nature</span>
+          <h3>SCAN 网络与精准脑环路</h3>
+          <p>把药物、DBS、磁波刀、经颅刺激的作用机制放进统一脑网络框架。</p>
+        </article>
+        <article>
+          <span>Clinical</span>
+          <h3>细胞移植与临床转化</h3>
+          <p>追踪 iPSC/ESC 多巴胺细胞移植的安全性、疗效信号和长期随访。</p>
+        </article>
+      </section>
+
+      <section class="resource-band" id="wechat">
+        <div class="panel wechat">
+          <p class="eyebrow">公众号</p>
+          <h2>关注 PD科学</h2>
+          <p>扫码进入公众号，适合承接长文、活动通知、访谈招募和社区精选帖。</p>
+          <img src="./assets/pd-science-wechat.png" alt="PD科学微信公众号二维码" />
+        </div>
+        <div class="panel">
+          <p class="eyebrow">问卷 · 访谈 · 招募</p>
+          <h2>正在收集的问题</h2>
+          <ul class="recruit-list">
+            <li><a href="https://github.com/PD-science/PD-Community/issues/new?template=recruitment.yml&labels=招募与访谈">早期帕金森非运动症状访谈</a></li>
+            <li><a href="https://github.com/PD-science/PD-Community/issues/new?template=recruitment.yml&labels=招募与访谈">照护者负担与睡眠问卷</a></li>
+            <li><a href="https://github.com/PD-science/PD-Community/issues/new?template=research-discussion.yml&labels=科研讨论">科研人员文献共读小组招募</a></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <script src="./site.js"></script>
+  </body>
+</html>

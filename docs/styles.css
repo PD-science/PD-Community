@@ -1,0 +1,392 @@
+:root {
+  --background: #f6f7f2;
+  --foreground: #16211d;
+  --ink-soft: #4f5f58;
+  --line: #dbe0d4;
+  --paper: #ffffff;
+  --mint: #d9efe4;
+  --teal: #106b63;
+  --teal-dark: #083f3b;
+  --coral: #de7356;
+  --sun: #f1c95d;
+  --violet: #6e6aa8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    linear-gradient(180deg, rgba(217, 239, 228, 0.82), rgba(246, 247, 242, 0) 420px),
+    var(--background);
+  color: var(--foreground);
+  font-family: Arial, "Microsoft YaHei", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 18px 0 56px;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: 66px;
+  padding: 12px 0;
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--teal-dark);
+  font-weight: 800;
+}
+
+.brand img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+}
+
+.topbar nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.topbar nav a {
+  border: 1px solid rgba(16, 107, 99, 0.18);
+  border-radius: 999px;
+  padding: 8px 13px;
+  color: var(--teal-dark);
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.hero {
+  min-height: 440px;
+  padding: 42px 0 22px;
+}
+
+.hero-copy {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  min-height: 420px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px;
+  border: 1px solid rgba(16, 107, 99, 0.16);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.94) 0%, rgba(255, 255, 255, 0.76) 44%, rgba(255, 255, 255, 0.16) 100%),
+    url("./assets/hero-community.png");
+  background-position: center;
+  background-size: cover;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--coral);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0;
+  color: var(--teal-dark);
+  font-size: clamp(3.4rem, 8vw, 7.4rem);
+  line-height: 0.96;
+  letter-spacing: 0;
+}
+
+.hero p {
+  max-width: 760px;
+  color: #2f4640;
+  font-size: 1.16rem;
+  line-height: 1.85;
+}
+
+.actions,
+.quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.primary,
+.secondary,
+.quick-links a,
+.feed-header a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border-radius: 8px;
+  padding: 0 18px;
+  font-weight: 800;
+}
+
+.primary {
+  color: #fff;
+  background: var(--teal);
+}
+
+.secondary,
+.quick-links a,
+.feed-header a {
+  border: 1px solid var(--teal);
+  color: var(--teal-dark);
+  background: #fff;
+}
+
+.wide {
+  width: 100%;
+  margin-top: 14px;
+}
+
+.notice,
+.panel,
+.literature article {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.notice {
+  margin: 0 0 22px;
+  padding: 18px 22px;
+}
+
+.notice strong {
+  color: var(--teal-dark);
+}
+
+.notice p,
+.panel p,
+.issue-card p,
+.literature p {
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+
+.community-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.75fr) minmax(0, 1.25fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.panel {
+  padding: 22px;
+}
+
+.panel h2,
+.feed-header h2,
+.literature h2 {
+  margin: 0;
+  color: var(--teal-dark);
+  font-size: 1.8rem;
+}
+
+.quick-links {
+  margin-top: 18px;
+}
+
+.hint {
+  margin: 16px 0 0;
+}
+
+.feed {
+  position: sticky;
+  top: 86px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 112px);
+  min-height: 640px;
+  overflow: hidden;
+}
+
+.feed-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.issue-list {
+  display: grid;
+  gap: 12px;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 6px;
+}
+
+.issue-card {
+  border: 1px solid #e5e8df;
+  border-radius: 8px;
+  padding: 18px;
+  background: #fbfcf8;
+}
+
+.issue-card h3 {
+  margin: 0 0 8px;
+  color: #1d322d;
+  font-size: 1.2rem;
+}
+
+.issue-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.issue-meta span {
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: var(--teal-dark);
+  background: var(--mint);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.split,
+.resource-band,
+.literature {
+  margin-top: 22px;
+}
+
+.assistant-card {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.7fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 22px;
+  background: var(--paper);
+}
+
+.assistant-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.literature {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.literature article {
+  padding: 20px;
+}
+
+.literature span {
+  color: var(--violet);
+  font-weight: 900;
+}
+
+.literature h3 {
+  margin: 14px 0 8px;
+  color: var(--teal-dark);
+}
+
+.resource-band {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 22px;
+}
+
+.wechat img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 18px;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.recruit-list {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recruit-list a {
+  display: block;
+  border-left: 4px solid var(--sun);
+  padding: 10px 12px;
+  color: #2f4640;
+  background: #fbfcf8;
+  text-decoration: underline;
+  text-decoration-color: rgba(16, 107, 99, 0.34);
+  text-underline-offset: 5px;
+}
+
+@media (max-width: 900px) {
+  .community-grid,
+  .assistant-card,
+  .resource-band,
+  .literature {
+    grid-template-columns: 1fr;
+  }
+
+  .feed {
+    position: static;
+    max-height: 76vh;
+    min-height: 560px;
+  }
+}
+
+@media (max-width: 620px) {
+  .site-shell {
+    width: min(100% - 20px, 1180px);
+    padding-top: 8px;
+  }
+
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hero-copy {
+    min-height: auto;
+    padding: 28px 20px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.82) 64%, rgba(255, 255, 255, 0.52) 100%),
+      url("./assets/hero-community.png");
+    background-position: 24% center;
+    background-size: cover;
+  }
+
+  .hero h1 {
+    font-size: 3.2rem;
+  }
+
+  .feed-header {
+    flex-direction: column;
+  }
+}

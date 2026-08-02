@@ -1,0 +1,23 @@
+name: 医生答疑
+description: 就诊准备、诊疗路径、康复建议等问题
+title: "医生答疑："
+labels: ["医生答疑"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        这里适合交流一般性医学信息，不能替代线下诊疗。请避免发布个人隐私。
+  - type: textarea
+    id: question
+    attributes:
+      label: 想请医生解答的问题
+      placeholder: 例如：就诊前建议带上哪些资料？
+    validations:
+      required: true
+  - type: textarea
+    id: records
+    attributes:
+      label: 已有记录或检查
+      description: 可选。可描述药物清单、症状变化、检查项目，不要上传隐私资料。
+    validations:
+      required: false

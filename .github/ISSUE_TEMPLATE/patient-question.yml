@@ -1,0 +1,36 @@
+name: 患者互助
+description: 症状记录、用药体验、照护经验等问题
+title: "患者互助："
+labels: ["患者互助"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢分享。请避免发布姓名、电话、身份证号、详细住址等隐私信息。
+  - type: dropdown
+    id: role
+    attributes:
+      label: 身份
+      options:
+        - 患者
+        - 家属
+        - 医生
+        - 科研人员
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: 想交流的问题
+      description: 写下症状、背景、已检查或想邀请谁来回答。
+      placeholder: 例如：起床后僵硬明显，大家会怎么记录变化？
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: 补充背景
+      description: 可选。不要填写可识别个人身份的隐私信息。
+    validations:
+      required: false

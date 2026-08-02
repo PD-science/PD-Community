@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 打开 PD科学小助手
+    url: https://pd-science.streamlit.app/
+    about: 用药、症状、文献名词、就诊前准备，可以先让小助手帮你梳理。

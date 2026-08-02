@@ -44,7 +44,7 @@ export default function Home() {
         </a>
         <nav>
           <a href="#community">社区</a>
-          <a href="#assistant">帕金森AI</a>
+          <a href="#assistant">小助手</a>
           <a href="#research">文献</a>
           <a href="#recruit">招募</a>
         </nav>
@@ -55,24 +55,24 @@ export default function Home() {
           <p className="eyebrow">患者 · 医生 · 科研人员共同交流</p>
           <h1>PD科学社区</h1>
           <p className="hero-lede">
-            一个像贴吧一样的帕金森病交流空间：可以发帖提问、回应经验、追踪文献，也可以直达帕金森AI、问卷访谈和研究招募入口。
+            一个像贴吧一样的帕金森病交流空间：可以发帖提问、回应经验、追踪文献，也可以直达帕金森AI小助手、问卷访谈和研究招募入口。
           </p>
           <div className="hero-actions">
             <a className="primary-action" href="#community">发起提问</a>
             <a className="secondary-action" href="https://pd-science.streamlit.app/" target="_blank" rel="noreferrer">
-              进入帕金森AI
+              进入小助手
             </a>
           </div>
         </div>
         <div className="assistant-card" id="assistant">
           <div className="bot-frame">
-            <img src="/pd-science-bot.png" alt="帕金森AI" />
+            <img src="/pd-science-bot.png" alt="帕金森AI小助手" />
           </div>
           <div>
-            <p className="card-kicker">帕金森AI入口</p>
+            <p className="card-kicker">AI 小助手入口</p>
             <h2>把问题先整理清楚</h2>
-            <p>用药、症状、文献名词、就诊前准备，都可以先让帕金森AI帮你梳理。</p>
-            <a href="https://pd-science.streamlit.app/" target="_blank" rel="noreferrer">打开帕金森AI</a>
+            <p>用药、症状、文献名词、就诊前准备，都可以先让帕金森AI小助手帮你梳理。</p>
+            <a href="https://pd-science.streamlit.app/" target="_blank" rel="noreferrer">打开帕金森AI小助手</a>
           </div>
         </div>
       </section>

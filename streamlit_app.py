@@ -480,7 +480,7 @@ st.markdown(
       </div>
       <div class="nav">
         <a href="#community">社区</a>
-        <a href="#assistant">帕金森AI</a>
+        <a href="#assistant">小助手</a>
         <a href="#research">文献</a>
         <a href="#wechat">公众号</a>
       </div>
@@ -497,10 +497,10 @@ with hero_col:
         <section class="hero">
       <p class="eyebrow">患者 · 医生 · 科研人员共同交流</p>
       <h1>PD科学社区</h1>
-      <p>一个像贴吧一样的帕金森病交流空间：可以发帖提问、回应经验、追踪文献，也可以直达帕金森AI、问卷访谈和研究招募入口。</p>
+      <p>一个像贴吧一样的帕金森病交流空间：可以发帖提问、回应经验、追踪文献，也可以直达帕金森AI小助手、问卷访谈和研究招募入口。</p>
       <div class="action-row">
         <a class="action primary" href="#community">发起提问</a>
-        <a class="action secondary" href="https://pd-science.streamlit.app/" target="_blank" rel="noreferrer">进入帕金森AI</a>
+        <a class="action secondary" href="https://pd-science.streamlit.app/" target="_blank" rel="noreferrer">进入小助手</a>
       </div>
     </section>
         """,
@@ -511,12 +511,12 @@ with assistant_hero_col:
     st.markdown(
         f"""
         <aside class="assistant-card" id="assistant">
-          <img class="assistant-img" src="{image_data_uri("public/pd-science-bot.png")}" alt="帕金森AI">
+          <img class="assistant-img" src="{image_data_uri("public/pd-science-bot.png")}" alt="帕金森AI小助手">
           <div>
-            <p class="eyebrow">帕金森AI入口</p>
+            <p class="eyebrow">AI 小助手入口</p>
             <h2>把问题先整理清楚</h2>
-            <p>用药、症状、文献名词、就诊前准备，都可以先让帕金森AI帮你梳理。</p>
-            <a class="action secondary" href="https://pd-science.streamlit.app/" target="_blank" rel="noreferrer">打开帕金森AI</a>
+            <p>用药、症状、文献名词、就诊前准备，都可以先让帕金森AI小助手帮你梳理。</p>
+            <a class="action secondary" href="https://pd-science.streamlit.app/" target="_blank" rel="noreferrer">打开帕金森AI小助手</a>
           </div>
         </aside>
         """,

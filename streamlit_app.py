@@ -169,13 +169,14 @@ st.markdown(
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 12px;
-        margin: 18px 0 24px;
+        margin: 24px 0 0;
     }
     .stat-card {
         border: 1px solid var(--line);
         border-radius: 8px;
         padding: 18px;
         background: var(--paper);
+        min-height: 122px;
     }
     .stat-card strong {
         color: var(--violet);
@@ -195,6 +196,9 @@ st.markdown(
         max-height: 700px;
         overflow-y: auto;
         padding-right: 8px;
+    }
+    .st-key-post_filter {
+        margin-top: 1.6rem;
     }
     .post-card {
         border: 1px solid #e5e8df;
@@ -519,23 +523,6 @@ with assistant_hero_col:
         unsafe_allow_html=True,
     )
 
-st.markdown('<div class="stat-grid">', unsafe_allow_html=True)
-stat_html = ""
-for title, subtitle in [
-    ("患者互助", "症状记录、用药体验、照护经验"),
-    ("医生答疑", "诊疗路径、DBS、康复建议"),
-    ("科研讨论", "靶点、临床试验、文献复盘"),
-    ("招募与访谈", "问卷、访谈、研究参与机会"),
-]:
-    stat_html += f"""
-    <div class="stat-card">
-      <strong>{count_for_channel(posts, title)}</strong>
-      <h3>{title}</h3>
-      <p>{subtitle}</p>
-    </div>
-    """
-st.markdown(stat_html + "</div>", unsafe_allow_html=True)
-
 left, right = st.columns([0.85, 1.35], gap="large")
 
 with left:
@@ -586,7 +573,7 @@ with right:
     with header_a:
         st.markdown('<p class="eyebrow">Latest questions</p><h2>最新交流</h2>', unsafe_allow_html=True)
     with header_b:
-        active_channel = st.selectbox("筛选板块", CHANNELS, index=0, label_visibility="collapsed")
+        active_channel = st.selectbox("筛选板块", CHANNELS, index=0, label_visibility="collapsed", key="post_filter")
 
     visible_posts = posts if active_channel == "全部" else [p for p in posts if p.get("channel") == active_channel]
     st.markdown('<div class="feed-scroll">', unsafe_allow_html=True)
@@ -650,6 +637,22 @@ with right:
                         st.error(f"回复失败：{exc}")
         st.markdown("</article>", unsafe_allow_html=True)
     st.markdown("</div></div>", unsafe_allow_html=True)
+
+stat_html = ""
+for title, subtitle in [
+    ("患者互助", "症状记录、用药体验、照护经验"),
+    ("医生答疑", "诊疗路径、DBS、康复建议"),
+    ("科研讨论", "靶点、临床试验、文献复盘"),
+    ("招募与访谈", "问卷、访谈、研究参与机会"),
+]:
+    stat_html += f"""
+    <div class="stat-card">
+      <strong>{count_for_channel(posts, title)}</strong>
+      <h3>{title}</h3>
+      <p>{subtitle}</p>
+    </div>
+    """
+st.markdown(f'<section class="stat-grid">{stat_html}</section>', unsafe_allow_html=True)
 
 st.markdown('<div id="research"></div>', unsafe_allow_html=True)
 st.markdown(

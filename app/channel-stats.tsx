@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 
 type Post = {
   channel: string;
+  replies?: unknown[];
 };
 
 const channels = [
@@ -27,7 +28,7 @@ export function ChannelStats() {
       const nextCounts = Object.fromEntries(channels.map((channel) => [channel.label, 0]));
       for (const post of data.posts ?? []) {
         if (post.channel in nextCounts) {
-          nextCounts[post.channel] += 1;
+          nextCounts[post.channel] += 1 + (post.replies?.length ?? 0);
         }
       }
       setCounts(nextCounts);
@@ -43,12 +44,12 @@ export function ChannelStats() {
   }, [refreshCounts]);
 
   return (
-    <section className="channel-strip" aria-label="社区板块真实提问统计">
+    <section className="channel-strip" aria-label="社区板块真实互动统计">
       {channels.map((item) => (
         <article key={item.label} className="channel-card">
           <div>
             <span>{item.label}</span>
-            <strong aria-label={`${item.label}真实提问数量`}>
+            <strong aria-label={`${item.label}真实互动数量`}>
               {isLoading ? "..." : counts[item.label]}
             </strong>
           </div>

@@ -217,6 +217,7 @@ export function CommunityBoard() {
         ),
       );
       setReplyStatus((current) => ({ ...current, [post.id]: "已回复在原帖下面" }));
+      window.dispatchEvent(new Event("pd-science-posts-updated"));
     } catch {
       setReplyStatus((current) => ({ ...current, [post.id]: "已先显示在本页，网络恢复后可重试" }));
     }

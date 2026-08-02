@@ -300,6 +300,16 @@ textarea {
   top: 86px;
 }
 
+.feed {
+  position: sticky;
+  top: 86px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 112px);
+  min-height: 640px;
+  overflow: hidden;
+}
+
 .composer form,
 .composer label {
   display: grid;
@@ -404,6 +414,29 @@ textarea {
 .post-list {
   display: grid;
   gap: 12px;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 6px;
+}
+
+.post-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.post-list::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: #f1f4ed;
+}
+
+.post-list::-webkit-scrollbar-thumb {
+  border: 2px solid #f1f4ed;
+  border-radius: 999px;
+  background: rgba(16, 107, 99, 0.32);
+}
+
+.post-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 107, 99, 0.48);
 }
 
 .post-card {
@@ -670,6 +703,12 @@ textarea {
   .composer {
     position: static;
   }
+
+  .feed {
+    position: static;
+    max-height: 76vh;
+    min-height: 560px;
+  }
 }
 
 @media (max-width: 620px) {
@@ -716,5 +755,15 @@ textarea {
 
   .tabs {
     justify-content: flex-start;
+  }
+
+  .feed {
+    max-height: 74vh;
+    min-height: 520px;
+    padding: 18px;
+  }
+
+  .post-list {
+    padding-right: 3px;
   }
 }

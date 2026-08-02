@@ -39,7 +39,7 @@ export default function Home() {
     <main className="site-shell">
       <header className="topbar" aria-label="PD科学社区导航">
         <a className="brand" href="#top" aria-label="PD科学首页">
-          <img src="/pd-science-logo.png" alt="" />
+          <img src="/pd-science-header-logo.png" alt="" />
           <span>PD科学</span>
         </a>
         <nav>

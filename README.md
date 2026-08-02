@@ -1,98 +1,55 @@
-# vinext-starter
+# PD科学社区
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+PD科学社区是面向帕金森病患者、家属、医生和科研人员的交流网站。仓库里保留了两套发布方式：
 
-## Prerequisites
+- `streamlit_app.py`：推荐使用的 Streamlit 互动版，支持网页内发帖和回复。
+- `docs/`：GitHub Pages 静态版，适合作为公开入口或备用页面。
 
-- Node.js `>=22.13.0`
+## Streamlit 版本
 
-## Quick Start
+本地运行：
 
 ```bash
-npm install
-npm run dev
-npm run build
+pip install -r requirements.txt
+streamlit run streamlit_app.py
 ```
 
-This starter does not use `wrangler.jsonc`.
+Streamlit Community Cloud 部署：
 
-## Included Shape
+1. 打开 Streamlit Community Cloud。
+2. 选择仓库 `PD-science/PD-Community`。
+3. Main file path 填写 `streamlit_app.py`。
+4. 在 App settings -> Secrets 中配置下面的内容：
 
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
-
-## Workspace Auth Headers
-
-OpenAI workspace sites can read the current user's email from
-`oai-authenticated-user-email`.
-
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
-
-Treat the full name as optional and fall back to email when it is absent:
-
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
+```toml
+GITHUB_REPO = "PD-science/PD-Community"
+GITHUB_BRANCH = "main"
+GITHUB_DATA_PATH = "data/posts.json"
+GITHUB_TOKEN = "你的 GitHub fine-grained token"
 ```
 
-## Optional Dispatch-Owned ChatGPT Sign-In
+`GITHUB_TOKEN` 需要对该仓库有 Contents 读写权限。不要把真实 token 提交到 GitHub。
 
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
+如果没有配置 token，应用会退回本地 JSON 模式，适合本地测试，但 Streamlit Cloud 重启后数据可能丢失。正式使用时请配置 GitHub token，让核心留言数据写入 `data/posts.json`。
 
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
+## 功能
 
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
+- 患者互助、医生答疑、科研讨论、招募与访谈四个板块。
+- 发帖、回复、按板块筛选。
+- 统计数字按帖子和回复总数计算。
+- PD科学小助手入口。
+- 文献板块、公众号二维码、招募入口。
 
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
+## 数据
 
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
+社区数据默认保存在：
 
-## Useful Commands
+```text
+data/posts.json
+```
 
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
+Streamlit 运行时会读取这个文件。配置 GitHub token 后，每次发帖或回复都会通过 GitHub API 更新这个文件。
 
-## Learn More
+## 注意
 
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+本社区用于经验交流与科研信息整理，不构成医疗建议。用户发帖时应避免发布姓名、电话、身份证号、详细住址、病历原件等隐私信息。

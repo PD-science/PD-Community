@@ -14,3 +14,18 @@ export const posts = sqliteTable(
   },
   (table) => [index("posts_created_at_idx").on(table.createdAt)],
 );
+
+export const replies = sqliteTable(
+  "replies",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    postId: integer("post_id")
+      .notNull()
+      .references(() => posts.id, { onDelete: "cascade" }),
+    role: text("role").notNull(),
+    body: text("body").notNull(),
+    author: text("author").notNull(),
+    createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [index("replies_post_id_created_at_idx").on(table.postId, table.createdAt)],
+);

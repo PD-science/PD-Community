@@ -10,6 +10,16 @@ type Post = {
   body: string;
   author: string;
   createdAt: string;
+  replies?: Reply[];
+};
+
+type Reply = {
+  id: number;
+  postId: number;
+  role: string;
+  body: string;
+  author: string;
+  createdAt: string;
 };
 
 const fallbackPosts: Post[] = [
@@ -21,6 +31,7 @@ const fallbackPosts: Post[] = [
     body: "想把症状和用药时间整理给医生看，欢迎分享你们觉得有效的记录方式。",
     author: "晨间记录者",
     createdAt: "刚刚",
+    replies: [],
   },
   {
     id: 2,
@@ -30,6 +41,7 @@ const fallbackPosts: Post[] = [
     body: "近期症状视频、药物清单、开关期时间、睡眠和便秘等非运动症状记录，都能帮助医生更快判断。",
     author: "神经内科医生",
     createdAt: "置顶",
+    replies: [],
   },
   {
     id: 3,
@@ -39,6 +51,7 @@ const fallbackPosts: Post[] = [
     body: "欢迎从临床终点、疾病分期和试验入组标准三个角度补充论文。",
     author: "文献共读",
     createdAt: "今日",
+    replies: [],
   },
 ];
 
@@ -54,6 +67,9 @@ export function CommunityBoard() {
     title: "",
     body: "",
   });
+  const [activeReplyPostId, setActiveReplyPostId] = useState<number | null>(null);
+  const [replyDrafts, setReplyDrafts] = useState<Record<number, { role: string; body: string }>>({});
+  const [replyStatus, setReplyStatus] = useState<Record<number, string>>({});
   const composerRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLTextAreaElement>(null);
 
@@ -96,6 +112,7 @@ export function CommunityBoard() {
       channel,
       author: role,
       createdAt: "刚刚",
+      replies: [],
     };
     setPosts((current) => [optimisticPost, ...current]);
     setDraft({ role: "患者", channel: "患者互助", title: "", body: "" });
@@ -124,14 +141,15 @@ export function CommunityBoard() {
   }
 
   function replyToPost(post: Post) {
-    focusComposer(
-      {
-        channel: post.channel,
-        title: `回复：${post.title}`.slice(0, 80),
-        body: `我想回应「${post.title}」：`,
-      },
-      "已带入原帖标题，可以继续写留言",
-    );
+    setActiveReplyPostId((current) => (current === post.id ? null : post.id));
+    setReplyDrafts((current) => ({
+      ...current,
+      [post.id]: current[post.id] ?? { role: draft.role, body: "" },
+    }));
+    setReplyStatus((current) => ({
+      ...current,
+      [post.id]: `正在回复「${post.title}」`,
+    }));
   }
 
   function inviteDoctor(post: Post) {
@@ -150,6 +168,58 @@ export function CommunityBoard() {
     const nextSaved = Array.from(new Set([post.title, ...saved])).slice(0, 20);
     window.localStorage.setItem("pd-science-saved-leads", JSON.stringify(nextSaved));
     setStatus(`已收藏「${post.title}」`);
+  }
+
+  async function submitReply(post: Post) {
+    const replyDraft = replyDrafts[post.id] ?? { role: draft.role, body: "" };
+    const body = replyDraft.body.trim();
+    const role = replyDraft.role;
+
+    if (!body) {
+      setReplyStatus((current) => ({ ...current, [post.id]: "回复内容不能为空" }));
+      return;
+    }
+
+    const optimisticReply: Reply = {
+      id: Date.now(),
+      postId: post.id,
+      role,
+      body,
+      author: role,
+      createdAt: "刚刚",
+    };
+    setPosts((current) =>
+      current.map((item) =>
+        item.id === post.id ? { ...item, replies: [...(item.replies ?? []), optimisticReply] } : item,
+      ),
+    );
+    setReplyDrafts((current) => ({ ...current, [post.id]: { role, body: "" } }));
+    setReplyStatus((current) => ({ ...current, [post.id]: "正在保存回复..." }));
+
+    try {
+      const response = await fetch("/api/replies", {
+        method: "POST",
+        body: JSON.stringify({ postId: post.id, role, body }),
+        headers: { "content-type": "application/json" },
+      });
+      if (!response.ok) throw new Error("Reply failed");
+      const data = await response.json();
+      setPosts((current) =>
+        current.map((item) =>
+          item.id === post.id
+            ? {
+                ...item,
+                replies: (item.replies ?? []).map((reply) =>
+                  reply.id === optimisticReply.id ? data.reply : reply,
+                ),
+              }
+            : item,
+        ),
+      );
+      setReplyStatus((current) => ({ ...current, [post.id]: "已回复在原帖下面" }));
+    } catch {
+      setReplyStatus((current) => ({ ...current, [post.id]: "已先显示在本页，网络恢复后可重试" }));
+    }
   }
 
   return (
@@ -246,7 +316,7 @@ export function CommunityBoard() {
               <p>{post.body}</p>
               <div className="post-actions">
                 <button type="button" onClick={() => replyToPost(post)} aria-label={`留言回复：${post.title}`}>
-                  留言
+                  {activeReplyPostId === post.id ? "收起留言" : `留言${post.replies?.length ? ` ${post.replies.length}` : ""}`}
                 </button>
                 <button type="button" onClick={() => inviteDoctor(post)} aria-label={`邀请医生回答：${post.title}`}>
                   邀请医生
@@ -255,6 +325,66 @@ export function CommunityBoard() {
                   收藏文献线索
                 </button>
               </div>
+              {(post.replies?.length || activeReplyPostId === post.id) && (
+                <div className="reply-thread" aria-label={`${post.title} 的回复`}>
+                  {(post.replies ?? []).map((reply) => (
+                    <article className="reply-card" key={reply.id}>
+                      <div className="reply-meta">
+                        <span>{reply.role}</span>
+                        <time>{reply.createdAt}</time>
+                      </div>
+                      <p>{reply.body}</p>
+                    </article>
+                  ))}
+                  {activeReplyPostId === post.id && (
+                    <div className="reply-composer">
+                      <div className="reply-composer-top">
+                        <label>
+                          身份
+                          <select
+                            value={replyDrafts[post.id]?.role ?? draft.role}
+                            onChange={(event) =>
+                              setReplyDrafts((current) => ({
+                                ...current,
+                                [post.id]: {
+                                  role: event.target.value,
+                                  body: current[post.id]?.body ?? "",
+                                },
+                              }))
+                            }
+                          >
+                            <option>患者</option>
+                            <option>家属</option>
+                            <option>医生</option>
+                            <option>科研人员</option>
+                          </select>
+                        </label>
+                      </div>
+                      <textarea
+                        value={replyDrafts[post.id]?.body ?? ""}
+                        onChange={(event) =>
+                          setReplyDrafts((current) => ({
+                            ...current,
+                            [post.id]: {
+                              role: current[post.id]?.role ?? draft.role,
+                              body: event.target.value,
+                            },
+                          }))
+                        }
+                        placeholder="在这个问题下面回复，补充经验、建议或追问。"
+                        rows={3}
+                        maxLength={420}
+                      />
+                      <div className="reply-footer">
+                        <span aria-live="polite">{replyStatus[post.id] ?? "回复会显示在这个问题下面"}</span>
+                        <button type="button" onClick={() => submitReply(post)}>
+                          回复
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </article>
           ))}
         </div>

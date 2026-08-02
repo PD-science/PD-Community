@@ -457,6 +457,110 @@ textarea {
   transform: translateY(1px);
 }
 
+.reply-thread {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+  border-left: 3px solid var(--mint);
+  padding-left: 14px;
+}
+
+.reply-card {
+  border: 1px solid #e5e8df;
+  border-radius: 8px;
+  padding: 12px 14px;
+  background: #ffffff;
+}
+
+.reply-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.reply-meta span,
+.reply-meta time {
+  border-radius: 999px;
+  padding: 4px 8px;
+  color: var(--teal-dark);
+  background: var(--mint);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.reply-card p {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+.reply-composer {
+  display: grid;
+  gap: 10px;
+  border: 1px dashed rgba(16, 107, 99, 0.28);
+  border-radius: 8px;
+  padding: 12px;
+  background: #ffffff;
+}
+
+.reply-composer-top {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.reply-composer label {
+  display: grid;
+  gap: 6px;
+  color: var(--teal-dark);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.reply-composer select,
+.reply-composer textarea {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 11px;
+  color: var(--foreground);
+  background: #fbfcf8;
+  outline: none;
+}
+
+.reply-composer textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+.reply-composer select:focus,
+.reply-composer textarea:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(16, 107, 99, 0.13);
+}
+
+.reply-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.reply-footer span {
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+}
+
+.reply-footer button {
+  min-width: 84px;
+  min-height: 40px;
+  border: 0;
+  border-radius: 8px;
+  color: #fff;
+  background: var(--teal);
+  font-weight: 800;
+  cursor: pointer;
+}
+
 .split-section {
   display: grid;
   grid-template-columns: minmax(240px, 0.62fr) minmax(0, 1.38fr);

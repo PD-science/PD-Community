@@ -165,6 +165,12 @@ st.markdown(
         color: var(--teal-dark);
         letter-spacing: 0;
     }
+    .section-title {
+        margin: 0 0 18px;
+        color: var(--teal-dark);
+        font-size: 2.2rem;
+        letter-spacing: 0;
+    }
     .stat-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -526,8 +532,7 @@ with assistant_hero_col:
 left, right = st.columns([0.85, 1.35], gap="large")
 
 with left:
-    st.markdown('<div class="panel" id="community">', unsafe_allow_html=True)
-    st.markdown('<p class="eyebrow">Community board</p><h2>发帖提问</h2>', unsafe_allow_html=True)
+    st.markdown('<h2 class="section-title" id="community">发帖提问</h2>', unsafe_allow_html=True)
     with st.form("new-post", clear_on_submit=True):
         col_a, col_b = st.columns(2)
         with col_a:
@@ -565,13 +570,11 @@ with left:
         st.caption(f"当前数据保存到 GitHub：{REPO}/{DATA_PATH}")
     else:
         st.caption("当前是本地数据模式。部署到 Streamlit Cloud 后，请配置 GITHUB_TOKEN 让数据写回 GitHub。")
-    st.markdown("</div>", unsafe_allow_html=True)
 
 with right:
-    st.markdown('<div class="panel">', unsafe_allow_html=True)
     header_a, header_b = st.columns([1, 1])
     with header_a:
-        st.markdown('<p class="eyebrow">Latest questions</p><h2>最新交流</h2>', unsafe_allow_html=True)
+        st.markdown('<h2 class="section-title">最新交流</h2>', unsafe_allow_html=True)
     with header_b:
         active_channel = st.selectbox("筛选板块", CHANNELS, index=0, label_visibility="collapsed", key="post_filter")
 
@@ -638,7 +641,7 @@ with right:
                     except Exception as exc:
                         st.error(f"回复失败：{exc}")
         st.markdown("</article>", unsafe_allow_html=True)
-    st.markdown("</div></div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 stat_html = ""
 for title, subtitle in [

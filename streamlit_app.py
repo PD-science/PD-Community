@@ -130,6 +130,31 @@ st.markdown(
         font-size: 1.16rem;
         line-height: 1.85;
     }
+    .action-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 16px;
+    }
+    .action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        border-radius: 8px;
+        padding: 0 18px;
+        font-weight: 900;
+        text-decoration: none !important;
+    }
+    .action.primary {
+        color: #fff !important;
+        background: var(--teal);
+    }
+    .action.secondary {
+        border: 1px solid var(--teal);
+        color: var(--teal-dark) !important;
+        background: #fff;
+    }
     .panel {
         border: 1px solid var(--line);
         border-radius: 8px;
@@ -167,7 +192,7 @@ st.markdown(
         line-height: 1.75;
     }
     .feed-scroll {
-        max-height: 760px;
+        max-height: 700px;
         overflow-y: auto;
         padding-right: 8px;
     }
@@ -204,6 +229,27 @@ st.markdown(
         margin-top: 10px;
         background: #fff;
     }
+    .assistant-card {
+        display: flex;
+        min-height: 420px;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 20px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 24px;
+        background: var(--paper);
+    }
+    .assistant-card h2 {
+        margin: 8px 0;
+        color: var(--teal-dark);
+        font-size: 1.8rem;
+        letter-spacing: 0;
+    }
+    .assistant-card p {
+        color: var(--ink-soft);
+        line-height: 1.75;
+    }
     .assistant-img, .wechat-img {
         width: 100%;
         border-radius: 8px;
@@ -212,6 +258,44 @@ st.markdown(
     .assistant-img {
         aspect-ratio: 16 / 9;
         object-fit: cover;
+    }
+    .literature-grid {
+        display: grid;
+        grid-template-columns: minmax(240px, 0.62fr) repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 22px;
+    }
+    .literature-card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 20px;
+        background: var(--paper);
+    }
+    .literature-card span {
+        color: var(--violet);
+        font-weight: 900;
+    }
+    .literature-card h3 {
+        margin: 14px 0 8px;
+        color: var(--teal-dark);
+        font-size: 1.05rem;
+    }
+    .resource-panel {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 22px;
+        background: var(--paper);
+    }
+    .recruit-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 18px;
+    }
+    .recruit-list div {
+        border-left: 4px solid var(--sun);
+        padding: 10px 12px;
+        color: #2f4640;
+        background: #fbfcf8;
     }
     div.stButton > button {
         border-radius: 8px;
@@ -228,6 +312,8 @@ st.markdown(
     @media (max-width: 900px) {
         .stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .hero { min-height: auto; padding: 28px 20px; }
+        .assistant-card { min-height: auto; }
+        .literature-grid { grid-template-columns: 1fr; }
     }
     </style>
     """.replace("HEROBG", base64.b64encode(Path("public/hero-community.png").read_bytes()).decode("utf-8")),
@@ -395,14 +481,43 @@ st.markdown(
         <a href="#wechat">公众号</a>
       </div>
     </div>
-    <section class="hero">
-      <p class="eyebrow">患者 · 医生 · 科研人员共同交流</p>
-      <h1>PD科学社区</h1>
-      <p>一个像贴吧一样的帕金森病交流空间：可以发帖提问、回应经验、追踪文献，也可以直达 PD科学小助手、问卷访谈和研究招募入口。</p>
-    </section>
     """,
     unsafe_allow_html=True,
 )
+
+hero_col, assistant_hero_col = st.columns([1.35, 0.65], gap="large")
+
+with hero_col:
+    st.markdown(
+        """
+        <section class="hero">
+      <p class="eyebrow">患者 · 医生 · 科研人员共同交流</p>
+      <h1>PD科学社区</h1>
+      <p>一个像贴吧一样的帕金森病交流空间：可以发帖提问、回应经验、追踪文献，也可以直达 PD科学小助手、问卷访谈和研究招募入口。</p>
+      <div class="action-row">
+        <a class="action primary" href="#community">发起提问</a>
+        <a class="action secondary" href="https://pd-science.streamlit.app/" target="_blank" rel="noreferrer">进入小助手</a>
+      </div>
+    </section>
+        """,
+        unsafe_allow_html=True,
+    )
+
+with assistant_hero_col:
+    st.markdown(
+        f"""
+        <aside class="assistant-card" id="assistant">
+          <img class="assistant-img" src="{image_data_uri("public/pd-science-bot.png")}" alt="PD科学小助手">
+          <div>
+            <p class="eyebrow">AI 小助手入口</p>
+            <h2>把问题先整理清楚</h2>
+            <p>用药、症状、文献名词、就诊前准备，都可以先让小助手帮你梳理。</p>
+            <a class="action secondary" href="https://pd-science.streamlit.app/" target="_blank" rel="noreferrer">打开 Streamlit 小助手</a>
+          </div>
+        </aside>
+        """,
+        unsafe_allow_html=True,
+    )
 
 st.markdown('<div class="stat-grid">', unsafe_allow_html=True)
 stat_html = ""
@@ -536,46 +651,64 @@ with right:
         st.markdown("</article>", unsafe_allow_html=True)
     st.markdown("</div></div>", unsafe_allow_html=True)
 
-st.markdown('<div id="assistant"></div>', unsafe_allow_html=True)
-assistant_col, info_col = st.columns([0.95, 1.05], gap="large")
-with assistant_col:
-    st.markdown(
-        f'<img class="assistant-img" src="{image_data_uri("public/pd-science-bot.png")}" alt="PD科学小助手">',
-        unsafe_allow_html=True,
-    )
-with info_col:
-    st.markdown('<p class="eyebrow">AI 小助手入口</p><h2>把问题先整理清楚</h2>', unsafe_allow_html=True)
-    st.write("用药、症状、文献名词、就诊前准备，都可以先让小助手帮你梳理。")
-    st.link_button("打开 Streamlit 小助手", "https://pd-science.streamlit.app/", use_container_width=True)
-
 st.markdown('<div id="research"></div>', unsafe_allow_html=True)
-st.markdown("### 文献板块")
-lit_a, lit_b, lit_c = st.columns(3)
-with lit_a:
-    st.markdown("**Science**")
-    st.write("FAM171A2 与 alpha-syn 传播：关注疾病修饰靶点。")
-with lit_b:
-    st.markdown("**Nature**")
-    st.write("SCAN 网络与精准脑环路：讨论 DBS、磁波刀和经颅刺激。")
-with lit_c:
-    st.markdown("**Clinical**")
-    st.write("细胞移植与临床转化：追踪安全性、疗效信号和长期随访。")
+st.markdown(
+    """
+    <section class="literature-grid">
+      <div class="literature-card">
+        <p class="eyebrow">Literature room</p>
+        <h2>文献板块</h2>
+        <p class="muted">把 PD科学知识库中的研究突破、争议和临床转化线索，整理成社区可讨论的话题。</p>
+      </div>
+      <article class="literature-card">
+        <span>Science</span>
+        <h3>FAM171A2 与 alpha-syn 传播</h3>
+        <p class="muted">关注疾病修饰靶点，讨论阻断病理蛋白传播的治疗可能性。</p>
+      </article>
+      <article class="literature-card">
+        <span>Nature</span>
+        <h3>SCAN 网络与精准脑环路</h3>
+        <p class="muted">把药物、DBS、磁波刀、经颅刺激的作用机制放进统一脑网络框架。</p>
+      </article>
+      <article class="literature-card">
+        <span>Clinical</span>
+        <h3>细胞移植与临床转化</h3>
+        <p class="muted">追踪安全性、疗效信号和长期随访。</p>
+      </article>
+    </section>
+    """,
+    unsafe_allow_html=True,
+)
 
 wechat_col, recruit_col = st.columns([0.9, 1.1], gap="large")
 with wechat_col:
-    st.markdown('<div id="wechat"></div>', unsafe_allow_html=True)
-    st.markdown("### 关注 PD科学")
-    st.write("扫码进入公众号，适合承接长文、活动通知、访谈招募和社区精选帖。")
     st.markdown(
-        f'<img class="wechat-img" src="{image_data_uri("public/pd-science-wechat.png")}" alt="PD科学微信公众号二维码">',
+        f"""
+        <section class="resource-panel" id="wechat">
+          <p class="eyebrow">公众号</p>
+          <h2>关注 PD科学</h2>
+          <p class="muted">扫码进入公众号，适合承接长文、活动通知、访谈招募和社区精选帖。</p>
+          <img class="wechat-img" src="{image_data_uri("public/pd-science-wechat.png")}" alt="PD科学微信公众号二维码">
+        </section>
+        """,
         unsafe_allow_html=True,
     )
 with recruit_col:
-    st.markdown("### 问卷 · 访谈 · 招募")
-    st.write("- 早期帕金森非运动症状访谈")
-    st.write("- 照护者负担与睡眠问卷")
-    st.write("- 科研人员文献共读小组招募")
-    st.info("可以在“招募与访谈”板块发布新的问卷、访谈或研究参与机会。")
+    st.markdown(
+        """
+        <section class="resource-panel">
+          <p class="eyebrow">问卷 · 访谈 · 招募</p>
+          <h2>正在收集的问题</h2>
+          <div class="recruit-list">
+            <div>早期帕金森非运动症状访谈</div>
+            <div>照护者负担与睡眠问卷</div>
+            <div>科研人员文献共读小组招募</div>
+          </div>
+          <p class="muted">可以在“招募与访谈”板块发布新的问卷、访谈或研究参与机会。</p>
+        </section>
+        """,
+        unsafe_allow_html=True,
+    )
 
 st.divider()
 st.caption("本社区仅用于经验交流与科研信息整理，不构成医疗建议。具体诊疗请咨询专业医生。")

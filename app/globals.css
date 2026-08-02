@@ -650,8 +650,7 @@ textarea {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 8px;
   background: #fff;
 }

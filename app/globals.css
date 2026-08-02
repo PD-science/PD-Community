@@ -120,7 +120,7 @@ textarea {
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.93) 0%, rgba(255, 255, 255, 0.78) 43%, rgba(255, 255, 255, 0.18) 100%),
     linear-gradient(180deg, rgba(246, 247, 242, 0.16), rgba(217, 239, 228, 0.26)),
-    url("/og.png");
+    url("/hero-community.png");
   background-position: center;
   background-size: cover;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.58);
@@ -686,7 +686,7 @@ textarea {
     padding: 28px 20px;
     background:
       linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.84) 60%, rgba(255, 255, 255, 0.54) 100%),
-      url("/og.png");
+      url("/hero-community.png");
     background-position: 24% center;
     background-size: cover;
   }

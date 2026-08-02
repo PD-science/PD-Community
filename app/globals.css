@@ -608,15 +608,17 @@ textarea {
 
 .wechat-panel {
   display: grid;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: 1fr;
   gap: 18px;
-  align-items: center;
+  align-content: start;
 }
 
 .wechat-panel img {
-  width: 150px;
-  height: 150px;
-  object-fit: contain;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   border-radius: 8px;
   background: #fff;
 }

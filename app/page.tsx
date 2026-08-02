@@ -100,12 +100,12 @@ export default function Home() {
 
       <section className="resource-band" id="recruit">
         <div className="wechat-panel">
-          <img src="/pd-science-wechat.png" alt="PD科学微信公众号二维码" />
           <div>
             <p className="card-kicker">公众号</p>
             <h2>关注 PD科学</h2>
             <p>扫码进入公众号，适合承接长文、活动通知、访谈招募和社区精选帖。</p>
           </div>
+          <img src="/pd-science-wechat.png" alt="PD科学微信公众号二维码" />
         </div>
         <div className="recruit-panel">
           <p className="card-kicker">问卷 · 访谈 · 招募</p>

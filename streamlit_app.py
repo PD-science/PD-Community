@@ -594,24 +594,26 @@ with right:
             unsafe_allow_html=True,
         )
         replies = post.get("replies", [])
-        if replies:
-            st.markdown('<div class="reply">', unsafe_allow_html=True)
-            for reply in replies:
-                st.markdown(
-                    f"""
-                    <div class="reply-card">
-                      <div class="meta">
-                        <span>{clean(reply.get("role", "用户"))}</span>
-                        <span>{clean(short_date(reply.get("created_at", "")))}</span>
-                      </div>
-                      <p class="muted">{clean(reply.get("body", ""))}</p>
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
-            st.markdown("</div>", unsafe_allow_html=True)
-
         with st.expander(f"留言 {len(replies)}", expanded=False):
+            if replies:
+                st.markdown('<div class="reply">', unsafe_allow_html=True)
+                for reply in replies:
+                    st.markdown(
+                        f"""
+                        <div class="reply-card">
+                          <div class="meta">
+                            <span>{clean(reply.get("role", "用户"))}</span>
+                            <span>{clean(short_date(reply.get("created_at", "")))}</span>
+                          </div>
+                          <p class="muted">{clean(reply.get("body", ""))}</p>
+                        </div>
+                        """,
+                        unsafe_allow_html=True,
+                    )
+                st.markdown("</div>", unsafe_allow_html=True)
+            else:
+                st.caption("还没有留言，欢迎补充。")
+
             with st.form(f"reply-{post['id']}", clear_on_submit=True):
                 reply_role = st.selectbox("身份", ROLES, key=f"role-{post['id']}")
                 reply_author = st.text_input("昵称", key=f"author-{post['id']}", placeholder="可不填")

@@ -546,12 +546,12 @@ with left:
     with st.form("new-post", clear_on_submit=True):
         col_a, col_b = st.columns(2)
         with col_a:
-            role = st.selectbox("身份", ROLES, index=0)
+            role = st.selectbox("身份（必选）", ROLES, index=0)
         with col_b:
-            channel = st.selectbox("板块", CHANNELS[1:], index=0)
+            channel = st.selectbox("板块（必选）", CHANNELS[1:], index=0)
         author = st.text_input("昵称", placeholder="例如：晨间记录者")
-        title = st.text_input("标题", placeholder="例如：左旋多巴加量前应该记录哪些症状？")
-        body = st.text_area("内容", height=170, placeholder="写下你的问题、背景、已有检查或想邀请谁来回答。请避免发布隐私信息。")
+        title = st.text_input("标题（必填）", placeholder="例如：左旋多巴加量前应该记录哪些症状？")
+        body = st.text_area("内容（必填）", height=170, placeholder="写下你的问题、背景、已有检查或想邀请谁来回答。请避免发布隐私信息。")
         submitted = st.form_submit_button("发布", type="primary", use_container_width=True)
 
     if submitted:
@@ -599,6 +599,7 @@ with right:
               <div class="meta">
                 <span>{clean(post.get("channel", "社区交流"))}</span>
                 <span>{clean(post.get("role", "用户"))}</span>
+                <span>{clean(post.get("author", post.get("role", "用户")))}</span>
                 <span>{clean(short_date(post.get("created_at", "")))}</span>
               </div>
               <h3>{clean(post.get("title", ""))}</h3>
@@ -616,6 +617,7 @@ with right:
                         <div class="reply-card">
                           <div class="meta">
                             <span>{clean(reply.get("role", "用户"))}</span>
+                            <span>{clean(reply.get("author", reply.get("role", "用户")))}</span>
                             <span>{clean(short_date(reply.get("created_at", "")))}</span>
                           </div>
                           <p class="muted">{clean(reply.get("body", ""))}</p>
@@ -628,9 +630,9 @@ with right:
                 st.caption("还没有留言，欢迎补充。")
 
             with st.form(f"reply-{post['id']}", clear_on_submit=True):
-                reply_role = st.selectbox("身份", ROLES, key=f"role-{post['id']}")
+                reply_role = st.selectbox("身份（必选）", ROLES, key=f"role-{post['id']}")
                 reply_author = st.text_input("昵称", key=f"author-{post['id']}", placeholder="可不填")
-                reply_body = st.text_area("回复内容", key=f"body-{post['id']}", height=110)
+                reply_body = st.text_area("回复内容（必填）", key=f"body-{post['id']}", height=110)
                 reply_submit = st.form_submit_button("回复")
             if reply_submit:
                 if not reply_body.strip():

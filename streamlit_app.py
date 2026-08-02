@@ -650,14 +650,14 @@ for title, subtitle in [
     ("科研讨论", "靶点、临床试验、文献复盘"),
     ("招募与访谈", "问卷、访谈、研究参与机会"),
 ]:
-    stat_html += f"""
-    <div class="stat-card">
-      <strong>{count_for_channel(posts, title)}</strong>
-      <h3>{title}</h3>
-      <p>{subtitle}</p>
-    </div>
-    """
-st.markdown(f'<section class="stat-grid">{stat_html}</section>', unsafe_allow_html=True)
+    stat_html += (
+        '<div class="stat-card">'
+        f"<strong>{count_for_channel(posts, title)}</strong>"
+        f"<h3>{title}</h3>"
+        f"<p>{subtitle}</p>"
+        "</div>"
+    )
+st.markdown('<section class="stat-grid">' + stat_html + '</section>', unsafe_allow_html=True)
 
 st.markdown('<div id="research"></div>', unsafe_allow_html=True)
 st.markdown(

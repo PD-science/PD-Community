@@ -13,14 +13,22 @@ import requests
 import streamlit as st
 
 
-REPO = st.secrets.get("GITHUB_REPO", "PD-science/PD-Community")
-BRANCH = st.secrets.get("GITHUB_BRANCH", "main")
-DATA_PATH = st.secrets.get("GITHUB_DATA_PATH", "data/posts.json")
-GITHUB_TOKEN = st.secrets.get("GITHUB_TOKEN", os.environ.get("GITHUB_TOKEN", ""))
+def get_secret(name: str, default: str = "") -> str:
+    try:
+        return st.secrets.get(name, default)
+    except st.errors.StreamlitSecretNotFoundError:
+        return default
+
+
+REPO = get_secret("GITHUB_REPO", "PD-science/PD-Community")
+BRANCH = get_secret("GITHUB_BRANCH", "main")
+DATA_PATH = get_secret("GITHUB_DATA_PATH", "data/posts.json")
+GITHUB_TOKEN = get_secret("GITHUB_TOKEN", os.environ.get("GITHUB_TOKEN", ""))
 LOCAL_DATA = Path(DATA_PATH)
 
 CHANNELS = ["全部", "患者互助", "医生答疑", "科研讨论", "招募与访谈"]
 ROLES = ["患者", "家属", "医生", "科研人员", "其他"]
+PAGE_SIZE = 3
 
 
 st.set_page_config(
@@ -468,6 +476,29 @@ def count_for_channel(posts: list[dict[str, Any]], channel: str) -> int:
     return base_count + doctor_replies_in_other_channels
 
 
+def post_matches_query(post: dict[str, Any], query: str) -> bool:
+    query = query.strip().lower()
+    if not query:
+        return True
+
+    searchable = [
+        post.get("channel", ""),
+        post.get("role", ""),
+        post.get("author", ""),
+        post.get("title", ""),
+        post.get("body", ""),
+    ]
+    for reply in post.get("replies", []):
+        searchable.extend(
+            [
+                reply.get("role", ""),
+                reply.get("author", ""),
+                reply.get("body", ""),
+            ]
+        )
+    return query in " ".join(str(item) for item in searchable).lower()
+
+
 def add_post(data: dict[str, Any], post: dict[str, Any]) -> dict[str, Any]:
     next_data = json.loads(json.dumps(data, ensure_ascii=False))
     next_data.setdefault("posts", [])
@@ -582,17 +613,36 @@ with left:
         st.caption("当前是本地数据模式。部署到 Streamlit Cloud 后，请配置 GITHUB_TOKEN 让数据写回 GitHub。")
 
 with right:
-    header_a, header_b = st.columns([1, 1])
+    header_a, header_b, header_c = st.columns([0.95, 0.95, 0.85])
     with header_a:
         st.markdown('<h2 class="section-title">最新交流</h2>', unsafe_allow_html=True)
     with header_b:
+        search_query = st.text_input(
+            "搜索内容",
+            placeholder="搜索标题、内容、昵称、留言",
+            label_visibility="collapsed",
+            key="post_search",
+        )
+    with header_c:
         active_channel = st.selectbox("筛选板块", CHANNELS, index=0, label_visibility="collapsed", key="post_filter")
 
+    filter_signature = f"{active_channel}::{search_query.strip()}"
+    if st.session_state.get("post_filter_signature") != filter_signature:
+        st.session_state.post_page = 1
+        st.session_state.post_filter_signature = filter_signature
+
     visible_posts = posts if active_channel == "全部" else [p for p in posts if p.get("channel") == active_channel]
+    visible_posts = [post for post in visible_posts if post_matches_query(post, search_query)]
+    page_count = max(1, (len(visible_posts) + PAGE_SIZE - 1) // PAGE_SIZE)
+    current_page = min(max(int(st.session_state.get("post_page", 1)), 1), page_count)
+    st.session_state.post_page = current_page
+    start_index = (current_page - 1) * PAGE_SIZE
+    paged_posts = visible_posts[start_index : start_index + PAGE_SIZE]
+
     st.markdown('<div class="feed-scroll">', unsafe_allow_html=True)
     if not visible_posts:
-        st.info("这个板块还没有留言。")
-    for post in visible_posts:
+        st.info("没有找到匹配内容。")
+    for post in paged_posts:
         st.markdown(
             f"""
             <article class="post-card">
@@ -654,6 +704,35 @@ with right:
                         st.error(f"回复失败：{exc}")
         st.markdown("</article>", unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
+
+    if visible_posts:
+        page_numbers = list(range(max(1, current_page - 2), min(page_count, current_page + 2) + 1))
+        if len(page_numbers) < min(5, page_count):
+            if page_numbers[0] == 1:
+                page_numbers = list(range(1, min(page_count, 5) + 1))
+            else:
+                page_numbers = list(range(max(1, page_count - 4), page_count + 1))
+
+        pagination_cols = st.columns([1.05] + [0.5] * len(page_numbers) + [1.05])
+        with pagination_cols[0]:
+            if st.button("上一页", disabled=current_page <= 1, use_container_width=True, key="prev_page"):
+                st.session_state.post_page = current_page - 1
+                st.rerun()
+        for index, page_number in enumerate(page_numbers, start=1):
+            with pagination_cols[index]:
+                if st.button(
+                    str(page_number),
+                    type="primary" if page_number == current_page else "secondary",
+                    use_container_width=True,
+                    key=f"page_{page_number}",
+                ):
+                    st.session_state.post_page = page_number
+                    st.rerun()
+        with pagination_cols[-1]:
+            if st.button("下一页", disabled=current_page >= page_count, use_container_width=True, key="next_page"):
+                st.session_state.post_page = current_page + 1
+                st.rerun()
+        st.caption(f"第 {current_page} / {page_count} 页，共 {len(visible_posts)} 条")
 
 stat_html = ""
 for title, subtitle in [

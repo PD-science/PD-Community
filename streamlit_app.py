@@ -61,10 +61,14 @@ st.markdown(
             var(--background);
         color: var(--foreground);
     }
+    header[data-testid="stHeader"] {
+        height: 0;
+        background: transparent;
+    }
     div[data-testid="stToolbar"], footer { visibility: hidden; height: 0; }
     .block-container {
         max-width: 1180px;
-        padding-top: 1.1rem;
+        padding-top: 2.4rem;
         padding-bottom: 3rem;
     }
     .topbar {
@@ -211,8 +215,8 @@ st.markdown(
         overflow-y: auto;
         padding-right: 8px;
     }
-    .st-key-post_filter {
-        margin-top: 1.6rem;
+    .st-key-post_search, .st-key-post_filter {
+        margin-top: 0.65rem;
     }
     .post-card {
         border: 1px solid #e5e8df;

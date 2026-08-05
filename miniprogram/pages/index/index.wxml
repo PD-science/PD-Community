@@ -5,6 +5,17 @@
     <view class="hero-copy">PD科学社区希望搭建一座桥梁，让患者不再孤单，让医生更贴近患者，让科研真正服务于人。</view>
   </view>
 
+  <view class="quick-links">
+    <button class="quick-link primary-link" data-type="assistant" bindtap="copyLink">
+      <text class="quick-title">帕金森AI小助手</text>
+      <text class="quick-desc">复制访问链接</text>
+    </button>
+    <button class="quick-link" data-type="community" bindtap="copyLink">
+      <text class="quick-title">PD社区网页版</text>
+      <text class="quick-desc">复制访问链接</text>
+    </button>
+  </view>
+
   <view class="feed-head">
     <view>
       <view class="panel-title">最新交流</view>

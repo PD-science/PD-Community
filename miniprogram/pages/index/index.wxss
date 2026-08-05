@@ -32,6 +32,43 @@
   line-height: 1.75;
 }
 
+.quick-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16rpx;
+  margin: 20rpx 0 30rpx;
+}
+
+.quick-link {
+  display: flex;
+  min-height: 112rpx;
+  flex-direction: column;
+  justify-content: center;
+  border: 2rpx solid #0c7c6e;
+  border-radius: 16rpx;
+  background: #ffffff;
+  color: #083f3b;
+  line-height: 1.35;
+}
+
+.primary-link {
+  background: #0c7c6e;
+  color: #ffffff;
+}
+
+.quick-title {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 900;
+}
+
+.quick-desc {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  opacity: 0.78;
+}
+
 .stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

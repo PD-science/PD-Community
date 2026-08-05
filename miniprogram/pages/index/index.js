@@ -1,6 +1,8 @@
 const CHANNELS = ["全部", "患者互助", "医生答疑", "科研讨论", "招募与访谈"];
 const POST_CHANNELS = CHANNELS.slice(1);
 const ROLES = ["患者", "家属", "医生", "科研人员", "其他"];
+const ASSISTANT_URL = "https://pd-science.streamlit.app/";
+const COMMUNITY_URL = "https://pd-community.streamlit.app/";
 
 Page({
   data: {
@@ -96,6 +98,17 @@ Page({
   clearSearch() {
     this.setData({ query: "", page: 1 });
     this.loadPosts(1);
+  },
+
+  copyLink(event) {
+    const type = event.currentTarget.dataset.type;
+    const url = type === "assistant" ? ASSISTANT_URL : COMMUNITY_URL;
+    wx.setClipboardData({
+      data: url,
+      success() {
+        wx.showToast({ title: "链接已复制", icon: "success" });
+      }
+    });
   },
 
   prevPage() {

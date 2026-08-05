@@ -1,0 +1,108 @@
+<scroll-view class="page" scroll-y>
+  <view class="hero">
+    <view class="eyebrow">患者 · 医生 · 科研人员共同交流</view>
+    <view class="hero-title">PD科学社区</view>
+    <view class="hero-copy">发帖提问、回应经验、追踪文献，也可以同步访问网页版社区。</view>
+  </view>
+
+  <view class="stats">
+    <view class="stat-card">
+      <text class="count">{{counts['患者互助'] || 0}}</text>
+      <text class="name">患者互助</text>
+      <text class="desc">症状记录、用药体验、照护经验</text>
+    </view>
+    <view class="stat-card">
+      <text class="count">{{counts['医生答疑'] || 0}}</text>
+      <text class="name">医生答疑</text>
+      <text class="desc">诊疗路径、DBS、康复建议</text>
+    </view>
+    <view class="stat-card">
+      <text class="count">{{counts['科研讨论'] || 0}}</text>
+      <text class="name">科研讨论</text>
+      <text class="desc">靶点、临床试验、文献复盘</text>
+    </view>
+    <view class="stat-card">
+      <text class="count">{{counts['招募与访谈'] || 0}}</text>
+      <text class="name">招募与访谈</text>
+      <text class="desc">问卷、访谈、研究参与机会</text>
+    </view>
+  </view>
+
+  <view class="panel">
+    <view class="panel-title">发帖提问</view>
+    <view class="form-row">
+      <picker class="picker" range="{{roles}}" value="{{postRoleIndex}}" bindchange="onPostRoleChange">
+        <view>身份（必选）：{{roles[postRoleIndex]}}</view>
+      </picker>
+      <picker class="picker" range="{{postChannels}}" value="{{postChannelIndex}}" bindchange="onPostChannelChange">
+        <view>板块（必选）：{{postChannels[postChannelIndex]}}</view>
+      </picker>
+    </view>
+    <input class="field" placeholder="昵称，例如：晨间记录者" value="{{postForm.author}}" data-field="author" bindinput="onPostInput" />
+    <input class="field" placeholder="标题（必填）" value="{{postForm.title}}" data-field="title" bindinput="onPostInput" />
+    <textarea class="textarea" placeholder="内容（必填）。请避免发布隐私信息。" value="{{postForm.body}}" data-field="body" bindinput="onPostInput" />
+    <button class="primary-btn" bindtap="submitPost">发布</button>
+  </view>
+
+  <view class="feed-head">
+    <view>
+      <view class="panel-title">最新交流</view>
+      <view class="summary">共 {{total}} 条，当前第 {{page}} / {{pageCount}} 页</view>
+    </view>
+    <picker class="filter" range="{{channels}}" value="{{activeChannelIndex}}" bindchange="onChannelChange">
+      <view>{{channels[activeChannelIndex]}}</view>
+    </picker>
+  </view>
+
+  <view class="search-row">
+    <input class="search" placeholder="搜索标题、内容、昵称、留言" value="{{query}}" confirm-type="search" bindinput="onSearchInput" bindconfirm="onSearchConfirm" />
+    <button class="search-btn" bindtap="onSearchConfirm">搜索</button>
+    <button class="ghost-btn" bindtap="clearSearch">清空</button>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">正在加载...</view>
+  <view wx:elif="{{posts.length === 0}}" class="empty">没有找到匹配内容</view>
+
+  <block wx:for="{{posts}}" wx:key="id">
+    <view class="post-card">
+      <view class="meta">
+        <text>{{item.channel}}</text>
+        <text>{{item.role}}</text>
+        <text>{{item.author}}</text>
+        <text>{{item.shortDate}}</text>
+      </view>
+      <view class="post-title">{{item.title}}</view>
+      <view class="post-body">{{item.body}}</view>
+      <button class="reply-toggle" data-id="{{item.id}}" bindtap="toggleReply">留言 {{item.replies.length || 0}}</button>
+
+      <view wx:if="{{openReplyPostId === item.id}}" class="reply-area">
+        <block wx:if="{{item.replies.length}}">
+          <view wx:for="{{item.replies}}" wx:for-item="reply" wx:key="id" class="reply-card">
+            <view class="meta small">
+              <text>{{reply.role}}</text>
+              <text>{{reply.author}}</text>
+              <text>{{reply.shortDate}}</text>
+            </view>
+            <view class="reply-body">{{reply.body}}</view>
+          </view>
+        </block>
+        <view wx:else class="empty small-empty">还没有留言，欢迎补充。</view>
+
+        <picker class="picker" range="{{roles}}" value="{{replyRoleIndex}}" bindchange="onReplyRoleChange">
+          <view>身份（必选）：{{roles[replyRoleIndex]}}</view>
+        </picker>
+        <input class="field" placeholder="昵称，可不填" value="{{replyForm.author}}" data-field="author" bindinput="onReplyInput" />
+        <textarea class="textarea reply-textarea" placeholder="回复内容（必填）" value="{{replyForm.body}}" data-field="body" bindinput="onReplyInput" />
+        <button class="primary-btn" data-id="{{item.id}}" bindtap="submitReply">回复</button>
+      </view>
+    </view>
+  </block>
+
+  <view class="pagination" wx:if="{{total > 0}}">
+    <button class="page-btn" disabled="{{page <= 1}}" bindtap="prevPage">上一页</button>
+    <text class="page-number">{{page}} / {{pageCount}}</text>
+    <button class="page-btn" disabled="{{page >= pageCount}}" bindtap="nextPage">下一页</button>
+  </view>
+
+  <view class="notice">本社区用于经验交流与科研信息整理，不构成医疗建议。请避免发布姓名、电话、身份证号、详细住址、病历原件等隐私信息。</view>
+</scroll-view>

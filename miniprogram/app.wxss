@@ -1,0 +1,16 @@
+page {
+  background: linear-gradient(180deg, #d9efe4 0%, #f6f7f2 360rpx);
+  color: #16211d;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+}
+
+button {
+  border-radius: 14rpx;
+  font-weight: 800;
+}
+
+input,
+textarea,
+picker {
+  box-sizing: border-box;
+}

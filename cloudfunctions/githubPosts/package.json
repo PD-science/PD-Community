@@ -1,0 +1,9 @@
+{
+  "name": "github-posts",
+  "version": "1.0.0",
+  "description": "PD科学社区微信小程序 GitHub 数据代理云函数",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest"
+  }
+}

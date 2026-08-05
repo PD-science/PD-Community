@@ -1,0 +1,16 @@
+{
+  "appid": "YOUR_WECHAT_MINIPROGRAM_APPID",
+  "projectname": "PD-Community",
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "compileHotReLoad": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "latest"
+}

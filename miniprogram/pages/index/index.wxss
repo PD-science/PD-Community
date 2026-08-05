@@ -1,0 +1,297 @@
+.page {
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 28rpx 24rpx 56rpx;
+}
+
+.hero {
+  border: 2rpx solid rgba(16, 107, 99, 0.16);
+  border-radius: 16rpx;
+  padding: 36rpx 32rpx;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(255, 248, 235, 0.78));
+}
+
+.eyebrow {
+  color: #de7356;
+  font-size: 24rpx;
+  font-weight: 900;
+}
+
+.hero-title {
+  margin-top: 18rpx;
+  color: #083f3b;
+  font-size: 72rpx;
+  font-weight: 900;
+  line-height: 0.96;
+}
+
+.hero-copy {
+  margin-top: 22rpx;
+  color: #405750;
+  font-size: 30rpx;
+  line-height: 1.75;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16rpx;
+  margin: 22rpx 0;
+}
+
+.stat-card,
+.panel,
+.post-card {
+  border: 2rpx solid #dbe0d4;
+  border-radius: 16rpx;
+  background: #ffffff;
+}
+
+.stat-card {
+  min-height: 150rpx;
+  padding: 24rpx;
+}
+
+.stat-card .count {
+  float: right;
+  color: #6e6aa8;
+  font-size: 44rpx;
+  font-weight: 900;
+}
+
+.stat-card .name {
+  display: block;
+  color: #083f3b;
+  font-size: 30rpx;
+  font-weight: 900;
+}
+
+.stat-card .desc {
+  display: block;
+  margin-top: 18rpx;
+  color: #4f5f58;
+  font-size: 24rpx;
+  line-height: 1.6;
+}
+
+.panel {
+  padding: 28rpx;
+  margin-bottom: 30rpx;
+}
+
+.panel-title {
+  color: #083f3b;
+  font-size: 44rpx;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.summary {
+  margin-top: 8rpx;
+  color: #66736e;
+  font-size: 24rpx;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16rpx;
+  margin-top: 24rpx;
+}
+
+.picker,
+.field,
+.textarea,
+.search,
+.filter {
+  border-radius: 14rpx;
+  background: #fbfcf8;
+  color: #16211d;
+  font-size: 28rpx;
+}
+
+.picker,
+.field,
+.filter {
+  min-height: 82rpx;
+  padding: 22rpx 24rpx;
+}
+
+.field {
+  width: 100%;
+  margin-top: 18rpx;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 220rpx;
+  margin-top: 18rpx;
+  padding: 22rpx 24rpx;
+  line-height: 1.65;
+}
+
+.primary-btn {
+  margin-top: 22rpx;
+  min-height: 86rpx;
+  border: 0;
+  background: #0c7c6e;
+  color: #ffffff;
+}
+
+.feed-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18rpx;
+  margin: 34rpx 0 18rpx;
+}
+
+.filter {
+  min-width: 220rpx;
+  text-align: center;
+  background: #ffffff;
+}
+
+.search-row {
+  display: grid;
+  grid-template-columns: 1fr 128rpx 128rpx;
+  gap: 12rpx;
+  margin-bottom: 22rpx;
+}
+
+.search {
+  min-height: 82rpx;
+  padding: 0 24rpx;
+  background: #ffffff;
+}
+
+.search-btn,
+.ghost-btn,
+.page-btn,
+.reply-toggle {
+  min-height: 82rpx;
+  border: 2rpx solid #0c7c6e;
+  background: #ffffff;
+  color: #083f3b;
+  font-size: 28rpx;
+}
+
+.search-btn {
+  background: #0c7c6e;
+  color: #ffffff;
+}
+
+.post-card {
+  padding: 30rpx;
+  margin-bottom: 22rpx;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-bottom: 22rpx;
+}
+
+.meta text {
+  border-radius: 999rpx;
+  padding: 10rpx 18rpx;
+  background: #d9f5ea;
+  color: #083f3b;
+  font-size: 24rpx;
+  font-weight: 900;
+}
+
+.meta.small text {
+  font-size: 22rpx;
+}
+
+.post-title {
+  color: #16211d;
+  font-size: 44rpx;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.post-body,
+.reply-body {
+  margin-top: 20rpx;
+  color: #4f5f58;
+  font-size: 30rpx;
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
+
+.reply-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  margin: 26rpx 0 0;
+  padding: 0 30rpx;
+}
+
+.reply-area {
+  margin-top: 24rpx;
+  border-left: 6rpx solid #c6f2df;
+  padding-left: 18rpx;
+}
+
+.reply-card {
+  border: 2rpx solid #e5e8df;
+  border-radius: 14rpx;
+  padding: 22rpx;
+  margin-bottom: 16rpx;
+  background: #fbfcf8;
+}
+
+.reply-textarea {
+  min-height: 160rpx;
+}
+
+.empty {
+  border-radius: 16rpx;
+  padding: 36rpx 24rpx;
+  margin: 20rpx 0;
+  background: #ffffff;
+  color: #66736e;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.small-empty {
+  padding: 22rpx;
+  font-size: 24rpx;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18rpx;
+  margin: 28rpx 0;
+}
+
+.page-btn {
+  width: 190rpx;
+}
+
+.page-btn[disabled] {
+  border-color: #dbe0d4;
+  color: #9aa39e;
+}
+
+.page-number {
+  min-width: 132rpx;
+  color: #083f3b;
+  font-size: 30rpx;
+  font-weight: 900;
+  text-align: center;
+}
+
+.notice {
+  color: #66736e;
+  font-size: 24rpx;
+  line-height: 1.7;
+  padding: 18rpx 4rpx 40rpx;
+}

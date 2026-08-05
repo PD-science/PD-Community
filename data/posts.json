@@ -1,6 +1,16 @@
 {
   "posts": [
     {
+      "id": "6ce65fb39d2240878999f9fc2f81a6d8",
+      "role": "患者",
+      "channel": "患者互助",
+      "author": "老刘",
+      "title": "有人吗？",
+      "body": "大家可以一起交流一下",
+      "created_at": "2026-08-05T02:11:04.732652+00:00",
+      "replies": []
+    },
+    {
       "id": "9efff9be061c4281aba555ec789f7b6b",
       "role": "患者",
       "channel": "患者互助",

@@ -2,46 +2,7 @@
   <view class="hero">
     <view class="eyebrow">患者 · 医生 · 科研人员共同交流</view>
     <view class="hero-title">PD科学社区</view>
-    <view class="hero-copy">发帖提问、回应经验、追踪文献，也可以同步访问网页版社区。</view>
-  </view>
-
-  <view class="stats">
-    <view class="stat-card">
-      <text class="count">{{counts['患者互助'] || 0}}</text>
-      <text class="name">患者互助</text>
-      <text class="desc">症状记录、用药体验、照护经验</text>
-    </view>
-    <view class="stat-card">
-      <text class="count">{{counts['医生答疑'] || 0}}</text>
-      <text class="name">医生答疑</text>
-      <text class="desc">诊疗路径、DBS、康复建议</text>
-    </view>
-    <view class="stat-card">
-      <text class="count">{{counts['科研讨论'] || 0}}</text>
-      <text class="name">科研讨论</text>
-      <text class="desc">靶点、临床试验、文献复盘</text>
-    </view>
-    <view class="stat-card">
-      <text class="count">{{counts['招募与访谈'] || 0}}</text>
-      <text class="name">招募与访谈</text>
-      <text class="desc">问卷、访谈、研究参与机会</text>
-    </view>
-  </view>
-
-  <view class="panel">
-    <view class="panel-title">发帖提问</view>
-    <view class="form-row">
-      <picker class="picker" range="{{roles}}" value="{{postRoleIndex}}" bindchange="onPostRoleChange">
-        <view>身份（必选）：{{roles[postRoleIndex]}}</view>
-      </picker>
-      <picker class="picker" range="{{postChannels}}" value="{{postChannelIndex}}" bindchange="onPostChannelChange">
-        <view>板块（必选）：{{postChannels[postChannelIndex]}}</view>
-      </picker>
-    </view>
-    <input class="field" placeholder="昵称，例如：晨间记录者" value="{{postForm.author}}" data-field="author" bindinput="onPostInput" />
-    <input class="field" placeholder="标题（必填）" value="{{postForm.title}}" data-field="title" bindinput="onPostInput" />
-    <textarea class="textarea" placeholder="内容（必填）。请避免发布隐私信息。" value="{{postForm.body}}" data-field="body" bindinput="onPostInput" />
-    <button class="primary-btn" bindtap="submitPost">发布</button>
+    <view class="hero-copy">PD科学社区希望搭建一座桥梁，让患者不再孤单，让医生更贴近患者，让科研真正服务于人。</view>
   </view>
 
   <view class="feed-head">
@@ -102,6 +63,45 @@
     <button class="page-btn" disabled="{{page <= 1}}" bindtap="prevPage">上一页</button>
     <text class="page-number">{{page}} / {{pageCount}}</text>
     <button class="page-btn" disabled="{{page >= pageCount}}" bindtap="nextPage">下一页</button>
+  </view>
+
+  <view class="panel">
+    <view class="panel-title">发帖提问</view>
+    <view class="form-row">
+      <picker class="picker" range="{{roles}}" value="{{postRoleIndex}}" bindchange="onPostRoleChange">
+        <view>身份（必选）：{{roles[postRoleIndex]}}</view>
+      </picker>
+      <picker class="picker" range="{{postChannels}}" value="{{postChannelIndex}}" bindchange="onPostChannelChange">
+        <view>板块（必选）：{{postChannels[postChannelIndex]}}</view>
+      </picker>
+    </view>
+    <input class="field" placeholder="昵称，例如：晨间记录者" value="{{postForm.author}}" data-field="author" bindinput="onPostInput" />
+    <input class="field" placeholder="标题（必填）" value="{{postForm.title}}" data-field="title" bindinput="onPostInput" />
+    <textarea class="textarea" placeholder="内容（必填）。请避免发布隐私信息。" value="{{postForm.body}}" data-field="body" bindinput="onPostInput" />
+    <button class="primary-btn" bindtap="submitPost">发布</button>
+  </view>
+
+  <view class="stats">
+    <view class="stat-card">
+      <text class="count">{{counts['患者互助'] || 0}}</text>
+      <text class="name">患者互助</text>
+      <text class="desc">症状记录、用药体验、照护经验</text>
+    </view>
+    <view class="stat-card">
+      <text class="count">{{counts['医生答疑'] || 0}}</text>
+      <text class="name">医生答疑</text>
+      <text class="desc">诊疗路径、DBS、康复建议</text>
+    </view>
+    <view class="stat-card">
+      <text class="count">{{counts['科研讨论'] || 0}}</text>
+      <text class="name">科研讨论</text>
+      <text class="desc">靶点、临床试验、文献复盘</text>
+    </view>
+    <view class="stat-card">
+      <text class="count">{{counts['招募与访谈'] || 0}}</text>
+      <text class="name">招募与访谈</text>
+      <text class="desc">问卷、访谈、研究参与机会</text>
+    </view>
   </view>
 
   <view class="notice">本社区用于经验交流与科研信息整理，不构成医疗建议。请避免发布姓名、电话、身份证号、详细住址、病历原件等隐私信息。</view>

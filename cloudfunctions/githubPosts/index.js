@@ -67,11 +67,52 @@ function githubRequest(method, path, payload) {
   });
 }
 
+function publicGithubJson() {
+  return new Promise((resolve, reject) => {
+    const encodedPath = DATA_PATH.split("/").map(encodeURIComponent).join("/");
+    const path = `/${REPO}/${encodeURIComponent(BRANCH)}/${encodedPath}`;
+    const req = https.request(
+      {
+        hostname: "raw.githubusercontent.com",
+        path,
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "User-Agent": "PD-Community-WeChat-MiniProgram"
+        }
+      },
+      (res) => {
+        let raw = "";
+        res.on("data", (chunk) => {
+          raw += chunk;
+        });
+        res.on("end", () => {
+          if (res.statusCode >= 400) {
+            reject(new Error(`公开 GitHub 数据读取失败：${res.statusCode}`));
+            return;
+          }
+          try {
+            resolve(JSON.parse(raw));
+          } catch (error) {
+            reject(new Error("公开 GitHub 数据无法解析"));
+          }
+        });
+      }
+    );
+    req.on("error", reject);
+    req.end();
+  });
+}
+
 function emptyData() {
   return { posts: [] };
 }
 
-async function readData() {
+async function readData(options = {}) {
+  if (!TOKEN && options.publicRead) {
+    return { data: await publicGithubJson(), sha: null };
+  }
+
   const encodedPath = DATA_PATH.split("/").map(encodeURIComponent).join("/");
   const path = `/repos/${REPO}/contents/${encodedPath}?ref=${encodeURIComponent(BRANCH)}`;
   try {
@@ -208,7 +249,7 @@ exports.main = async (event) => {
 
   try {
     if (action === "list") {
-      const { data } = await readData();
+      const { data } = await readData({ publicRead: true });
       return jsonResponse(200, listPosts(data, event));
     }
 

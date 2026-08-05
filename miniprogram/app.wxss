@@ -7,6 +7,14 @@ page {
 button {
   border-radius: 14rpx;
   font-weight: 800;
+  box-sizing: border-box;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+button::after {
+  border: 0;
 }
 
 input,

@@ -1,8 +1,5 @@
-const cloud = require("wx-server-sdk");
 const crypto = require("crypto");
 const https = require("https");
-
-cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 
 const CHANNELS = ["全部", "患者互助", "医生答疑", "科研讨论", "招募与访谈"];
 const ROLES = ["患者", "家属", "医生", "科研人员", "其他"];
@@ -166,6 +163,16 @@ function anonymizeOpenid(openid) {
   return crypto.createHash("sha256").update(openid).digest("hex").slice(0, 16);
 }
 
+function getOpenid(event) {
+  return (
+    event.openid ||
+    event.OPENID ||
+    (event.userInfo && (event.userInfo.openId || event.userInfo.openid)) ||
+    (event.wxContext && event.wxContext.OPENID) ||
+    ""
+  );
+}
+
 function postMatchesQuery(post, query) {
   const keyword = safeText(query).toLowerCase();
   if (!keyword) return true;
@@ -244,8 +251,8 @@ async function mutate(mutator) {
 }
 
 exports.main = async (event) => {
-  const wxContext = cloud.getWXContext();
   const action = event.action || "list";
+  const openid = getOpenid(event);
 
   try {
     if (action === "list") {
@@ -270,7 +277,7 @@ exports.main = async (event) => {
           body,
           created_at: nowIso(),
           source: "wechat-miniprogram",
-          openid_hash: anonymizeOpenid(wxContext.OPENID),
+          openid_hash: anonymizeOpenid(openid),
           replies: []
         };
         data.posts = data.posts || [];
@@ -296,7 +303,7 @@ exports.main = async (event) => {
           body,
           created_at: nowIso(),
           source: "wechat-miniprogram",
-          openid_hash: anonymizeOpenid(wxContext.OPENID)
+          openid_hash: anonymizeOpenid(openid)
         };
         post.replies = post.replies || [];
         post.replies.push(nextReply);

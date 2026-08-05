@@ -1,6 +1,18 @@
 {
   "posts": [
     {
+      "id": "wx-post-msgajbk9-4944ce2e",
+      "role": "患者",
+      "channel": "患者互助",
+      "author": "老刘",
+      "title": "可不可以直接在微信打开",
+      "body": "复制太麻烦了",
+      "created_at": "2026-08-05T16:17:51.945Z",
+      "source": "wechat-miniprogram",
+      "openid_hash": "8504d611d872a69a",
+      "replies": []
+    },
+    {
       "id": "6ce65fb39d2240878999f9fc2f81a6d8",
       "role": "患者",
       "channel": "患者互助",

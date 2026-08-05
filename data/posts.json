@@ -17,6 +17,15 @@
           "created_at": "2026-08-05T13:33:58.126Z",
           "source": "wechat-miniprogram",
           "openid_hash": "8504d611d872a69a"
+        },
+        {
+          "id": "wx-reply-msg4znqq-2a9a7200",
+          "role": "其他",
+          "author": "其他",
+          "body": "这个平台很新颖 预计会很有帮助！",
+          "created_at": "2026-08-05T13:42:36.530Z",
+          "source": "wechat-miniprogram",
+          "openid_hash": "a89b045269660a3a"
         }
       ]
     },

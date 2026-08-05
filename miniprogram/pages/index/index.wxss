@@ -191,8 +191,8 @@
 
 .search-row {
   display: grid;
-  grid-template-columns: 1fr 112rpx 112rpx;
-  gap: 12rpx;
+  grid-template-columns: minmax(0, 1fr) 96rpx 96rpx;
+  gap: 10rpx;
   margin-bottom: 22rpx;
 }
 
@@ -206,11 +206,13 @@
 .ghost-btn,
 .page-btn,
 .reply-toggle {
+  box-sizing: border-box;
   min-height: 82rpx;
+  padding: 0 8rpx;
   border: 2rpx solid #0c7c6e;
   background: #ffffff;
   color: #083f3b;
-  font-size: 28rpx;
+  font-size: 26rpx;
 }
 
 .search-btn {

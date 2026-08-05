@@ -43,15 +43,31 @@ Page({
   },
 
   async callApi(payload) {
-    const response = await wx.cloud.callFunction({
-      name: "githubPosts",
-      data: payload
-    });
+    let response;
+    try {
+      response = await wx.cloud.callFunction({
+        name: "githubPosts",
+        data: payload
+      });
+    } catch (error) {
+      throw new Error(this.formatCloudError(error));
+    }
     const result = response.result || {};
     if (result.statusCode && result.statusCode >= 400) {
       throw new Error((result.body && result.body.message) || "请求失败");
     }
     return result.body || result;
+  },
+
+  formatCloudError(error) {
+    const message = String((error && error.message) || error || "");
+    if (message.includes("GITHUB_TOKEN")) {
+      return "云函数缺少 GITHUB_TOKEN 环境变量";
+    }
+    if (message.includes("-504003") || message.includes("-504002") || message.includes("cloud.callFunction")) {
+      return "云函数暂时不可用，请稍后重试";
+    }
+    return message || "请求失败";
   },
 
   async loadPosts(nextPage) {

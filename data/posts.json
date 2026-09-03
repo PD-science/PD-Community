@@ -8,7 +8,17 @@
       "title": "有人吗",
       "body": "想问一下大家是怎么调药的",
       "created_at": "2026-08-26T00:56:16.505101+00:00",
-      "replies": []
+      "replies": [
+        {
+          "id": "wx-reply-mtl3z2dv-de246547",
+          "role": "患者",
+          "author": "老刘",
+          "body": "根据医生的建议慢慢试，不舒服就不用，一种药要试五六天看看效果。不要一次试太多，可以自己记笔记去调整。",
+          "created_at": "2026-09-03T05:52:42.452Z",
+          "source": "wechat-miniprogram",
+          "openid_hash": "8504d611d872a69a"
+        }
+      ]
     },
     {
       "id": "7fd441af1cad4ffb9aca5798ffaadfd9",

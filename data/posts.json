@@ -26,6 +26,15 @@
           "created_at": "2026-09-03T05:52:44.158Z",
           "source": "wechat-miniprogram",
           "openid_hash": "8504d611d872a69a"
+        },
+        {
+          "id": "wx-reply-mtl3z6d5-061c8d8f",
+          "role": "患者",
+          "author": "老刘",
+          "body": "根据医生的建议慢慢试，不舒服就不用，一种药要试五六天看看效果。不要一次试太多，可以自己记笔记去调整。",
+          "created_at": "2026-09-03T05:52:47.610Z",
+          "source": "wechat-miniprogram",
+          "openid_hash": "8504d611d872a69a"
         }
       ]
     },

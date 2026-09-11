@@ -33,6 +33,15 @@
           "author": "患者",
           "body": "我感觉效果挺好的，我是第四天开始有运动改善了，但是第一天我明显觉得我睡眠更好了。",
           "created_at": "2026-09-09T02:30:38.808370+00:00"
+        },
+        {
+          "id": "wx-reply-mtw985ug-781bf497",
+          "role": "患者",
+          "author": "患者",
+          "body": "没效果",
+          "created_at": "2026-09-11T01:05:12.856Z",
+          "source": "wechat-miniprogram",
+          "openid_hash": "8504d611d872a69a"
         }
       ]
     },

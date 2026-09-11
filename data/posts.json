@@ -1,6 +1,18 @@
 {
   "posts": [
     {
+      "id": "wx-post-mtx1zal0-a6d84077",
+      "role": "医生",
+      "channel": "招募与访谈",
+      "author": "PD中医生",
+      "title": "帕金森血压及中医证候访谈",
+      "body": "帕金森血压及中医证候访谈",
+      "created_at": "2026-09-11T14:30:07.956Z",
+      "source": "wechat-miniprogram",
+      "openid_hash": "c22ce5d47b785209",
+      "replies": []
+    },
+    {
       "id": "wx-post-mtx1z7ag-1e544297",
       "role": "医生",
       "channel": "招募与访谈",

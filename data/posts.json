@@ -1,6 +1,18 @@
 {
   "posts": [
     {
+      "id": "wx-post-mtwjbr05-c1f2235a",
+      "role": "医生",
+      "channel": "医生答疑",
+      "author": "小李说药",
+      "title": "DBS术后药物调整",
+      "body": "DBS术后别自行停药。早期先恢复术前用药；开机稳定后，再由医生缓慢减量。先减辅助药，后减主要药，每次小量、间隔数周。出现症状反弹、异动或情绪淡漠，立即回退并联系医生。DBS不替代药物，调整要慢、要个体化。",
+      "created_at": "2026-09-11T05:47:56.406Z",
+      "source": "wechat-miniprogram",
+      "openid_hash": "8504d611d872a69a",
+      "replies": []
+    },
+    {
       "id": "e549641f2d8241cdbf052e43251fb217",
       "role": "患者",
       "channel": "患者互助",

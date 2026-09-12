@@ -1,6 +1,18 @@
 {
   "posts": [
     {
+      "id": "wx-post-mty9ljv2-d46205c2",
+      "role": "家属",
+      "channel": "患者互助",
+      "author": "全年无休的照顾者",
+      "title": "严重便秘",
+      "body": "因为帕金森病，顽固性便秘，稀的也无法排出，焦头烂额",
+      "created_at": "2026-09-12T10:51:09.903Z",
+      "source": "wechat-miniprogram",
+      "openid_hash": "1461f2c427497cf3",
+      "replies": []
+    },
+    {
       "id": "wx-post-mtx1zcyd-afe3ae78",
       "role": "医生",
       "channel": "招募与访谈",

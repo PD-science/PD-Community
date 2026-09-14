@@ -1,6 +1,18 @@
 {
   "posts": [
     {
+      "id": "wx-post-mu0j2j0m-10fa4eb0",
+      "role": "患者",
+      "channel": "患者互助",
+      "author": "方亦圆",
+      "title": "晨起嗜睡",
+      "body": "手术后脚不抖了了，美多芭不吃也一木样，您回复中晚上加半粒息宁目的是什么，早上起来眼睛睁不开增加皮压有效的",
+      "created_at": "2026-09-14T00:51:50.855Z",
+      "source": "wechat-miniprogram",
+      "openid_hash": "7a74c510fa58f6e1",
+      "replies": []
+    },
+    {
       "id": "wx-post-mu0j2hdo-02f528ae",
       "role": "患者",
       "channel": "患者互助",

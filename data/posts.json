@@ -8,7 +8,17 @@
       "title": "DBS嗜睡患者回复",
       "body": "早起嗜睡到底是困还是单独的眼皮沉？如果只是眼皮沉可以考虑早起刺激不足时出现的轴性/眼睑运动症状。（可以问问程控医生能不能调整参数（不是电压）或者问问现在晚上有没有开机）",
       "created_at": "2026-09-15T03:27:09.788915+00:00",
-      "replies": []
+      "replies": [
+        {
+          "id": "wx-reply-mu28uuff-f35a28df",
+          "role": "患者",
+          "author": "患者",
+          "body": "晨起情绪低落眠睁不开有时还想死",
+          "created_at": "2026-09-15T05:41:28.587Z",
+          "source": "wechat-miniprogram",
+          "openid_hash": "7a74c510fa58f6e1"
+        }
+      ]
     },
     {
       "id": "wx-post-mu0jiyo0-7cc45ac6",

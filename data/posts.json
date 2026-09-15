@@ -42,6 +42,15 @@
           "author": "医生",
           "body": "您夜间睡眠质量怎么样？早上起来和白天运动症状控制的怎么样？",
           "created_at": "2026-09-15T06:39:37.102972+00:00"
+        },
+        {
+          "id": "wx-reply-mu3b9kb6-2cd5eb2f",
+          "role": "患者",
+          "author": "患者",
+          "body": "夜间睡眠5，6个小时，有时7个多小时，吃了安眠药",
+          "created_at": "2026-09-15T23:36:40.722Z",
+          "source": "wechat-miniprogram",
+          "openid_hash": "7a74c510fa58f6e1"
         }
       ]
     },

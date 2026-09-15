@@ -35,6 +35,13 @@
           "created_at": "2026-09-15T05:43:15.730Z",
           "source": "wechat-miniprogram",
           "openid_hash": "7a74c510fa58f6e1"
+        },
+        {
+          "id": "804e29d611c74621b56a4f02f7db92fa",
+          "role": "医生",
+          "author": "医生",
+          "body": "您夜间睡眠质量怎么样？早上起来和白天运动症状控制的怎么样？",
+          "created_at": "2026-09-15T06:39:37.102972+00:00"
         }
       ]
     },
